@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    env: {
+        DIRECTUS_URL: process.env.DIRECTUS_URL
+    }
+};
 
 export default nextConfig;

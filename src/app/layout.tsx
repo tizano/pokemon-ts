@@ -14,6 +14,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log(process.env.NEXT_PUBLIC_DIRECTUS_URL)
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
