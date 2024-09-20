@@ -1,0 +1,1 @@
+ALTER TABLE "card" ALTER COLUMN "card_type_id" SET NOT NULL;
