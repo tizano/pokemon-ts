@@ -1,1 +1,3 @@
 bun test
+bunx pretty-quick --staged
+bunx lint-staged

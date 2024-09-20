@@ -79,11 +79,11 @@ export default function PokemonDetail() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <img
+              {/* <img
                 src={`/placeholder.svg?height=300&width=300&text=${pokemon.name}`}
                 alt={`${pokemon.name} image`}
                 className="rounded-md"
-              />
+              /> */}
             </div>
             <div>
               <p>

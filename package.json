@@ -13,8 +13,15 @@
     "drizzle:studio": "bunx drizzle-kit studio",
     "prepare": "husky"
   },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --max-warnings 0 ."
+    ]
+  },
   "dependencies": {
     "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@hono/zod-validator": "^0.2.2",
     "@neondatabase/serverless": "^0.9.4",
     "@next/env": "^14.2.7",
@@ -52,7 +59,9 @@
     "eslint-config-next": "^14.2.12",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "lint-staged": "^15.2.10",
     "postcss": "^8",
+    "pretty-quick": "^4.0.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

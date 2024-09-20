@@ -1,1 +1,0 @@
-ALTER TABLE "pokemon" ADD COLUMN "slug" text DEFAULT '' NOT NULL;

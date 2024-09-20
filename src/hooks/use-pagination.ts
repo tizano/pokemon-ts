@@ -23,10 +23,7 @@ export default function usePagination({
   initialPage = 1,
 }: UsePaginationProps): UsePaginationReturn {
   // Utilisation de `useQueryState` pour synchroniser la pagination avec l'URL
-  const [currentPage, setPage] = useQueryState(
-    'page',
-    parseAsInteger.withDefault(initialPage),
-  );
+  const [currentPage, setPage] = useQueryState('page', parseAsInteger.withDefault(initialPage));
 
   const lastPage = Math.ceil(totalItems / itemsPerPage);
 
