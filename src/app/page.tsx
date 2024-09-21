@@ -34,7 +34,7 @@ export default function Page() {
   }, [page]);
 
   if (!pokemonsData) return <Loading />;
-  if (!pokemonsData.count) return <p>No pokemons data</p>;
+  if (!pokemonsData.count) return <Suspense fallback={<p>No pokemons data</p>} />;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

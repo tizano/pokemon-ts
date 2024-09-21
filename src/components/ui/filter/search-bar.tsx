@@ -1,5 +1,5 @@
 import { useQueryState } from 'nuqs';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Input } from '../input';
 
 // update the component to accept value and onChange props
@@ -14,16 +14,18 @@ const SearchBar = ({ value, onChange }: { value: string; onChange: (value: strin
   }, [setName, value]);
 
   return (
-    <Input
-      type="text"
-      onChange={(e) => {
-        setName(e.target.value);
-        onChange(e.target.value);
-      }}
-      value={name || ''}
-      placeholder="Search Pokémon"
-      className="max-w-xs"
-    />
+    <Suspense>
+      <Input
+        type="text"
+        onChange={(e) => {
+          setName(e.target.value);
+          onChange(e.target.value);
+        }}
+        value={name || ''}
+        placeholder="Search Pokémon"
+        className="max-w-xs"
+      />
+    </Suspense>
   );
 };
 

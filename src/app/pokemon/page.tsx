@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import SearchBar from '@/components/ui/filter/search-bar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import useDebounce from '@/hooks/use-debounce';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 // Mock Pokémon data
 const pokemonData = [
@@ -24,6 +24,10 @@ const pokemonData = [
 ];
 
 const types = ['All', ...new Set(pokemonData.map((pokemon) => pokemon.type))];
+
+function SearchBarFallback() {
+  return <>placeholder</>;
+}
 
 export default function Page() {
   const [searchName, setSearchName] = useState('');
@@ -47,7 +51,9 @@ export default function Page() {
       <h1 className="text-2xl font-bold mb-4">Pokémon Listing</h1>
 
       <div className="flex gap-4 mb-4">
-        <SearchBar value={debouncedName} onChange={setSearchName} />
+        <Suspense fallback={<SearchBarFallback />}>
+          <SearchBar value={debouncedName} onChange={setSearchName} />
+        </Suspense>
         <Select value={selectedType} onValueChange={setSelectedType}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select type" />
@@ -61,25 +67,26 @@ export default function Page() {
           </SelectContent>
         </Select>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-        {visiblePokemon.map((pokemon) => (
-          <Card key={pokemon.id} className="cursor-pointer hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle>{pokemon.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>Type: {pokemon.type}</p>
-              {/* <img
+      <Suspense fallback={<SearchBarFallback />}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+          {visiblePokemon.map((pokemon) => (
+            <Card key={pokemon.id} className="cursor-pointer hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle>{pokemon.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Type: {pokemon.type}</p>
+                {/* <img
                 src={`/placeholder.svg?height=200&width=200&text=${pokemon.name}`}
                 alt={`${pokemon.name} image`}
                 className="mt-2 rounded-md"
               /> */}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-      <h2>{visiblePokemon.length}</h2>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <h2>{visiblePokemon.length}</h2>
+      </Suspense>
     </div>
   );
 }
