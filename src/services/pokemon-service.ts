@@ -1,3 +1,4 @@
+'use server';
 import { db } from '@/db/connect';
 import { pokemon } from '@/db/schema/schema';
 import { ListWithPagination, NewPokemon, Pokemon } from '@/db/schema/schema.type';
@@ -9,12 +10,11 @@ export const getPokemons = async (
 ): Promise<ListWithPagination<Pokemon[]>> => {
   try {
     // use db.select
-    const data = await db
-      .select()
-      .from(pokemon)
-      .orderBy(asc(pokemon.name))
-      .limit(itemsPerPage)
-      .offset((page - 1) * itemsPerPage);
+    const data = await db.query.pokemon.findMany({
+      offset: (page - 1) * itemsPerPage,
+      limit: itemsPerPage,
+      orderBy: [asc(pokemon.name)],
+    });
 
     const totalPages = await db.select({ count: count(pokemon.id) }).from(pokemon);
 

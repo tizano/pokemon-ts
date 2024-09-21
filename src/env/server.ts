@@ -1,3 +1,4 @@
+/* eslint-disable n/no-process-env */
 import { createEnv } from '@t3-oss/env-nextjs';
 import { config } from 'dotenv';
 import { expand } from 'dotenv-expand';
@@ -15,10 +16,16 @@ export const env = createEnv({
     DB_PORT: z.coerce.number(),
     DATABASE_URL: z.string().url(),
   },
+  isServer: typeof window === 'undefined',
+  emptyStringAsUndefined: true,
+  // eslint-disable-next-line n/no-process-env
+  experimental__runtimeEnv: process.env,
+  onInvalidAccess: (key: string) => {
+    console.error(`❌ Invalid access to environment variable: ${key}`);
+    process.exit(1);
+  },
   onValidationError: (error: ZodError) => {
     console.error('❌ Invalid environment variables:', error.flatten().fieldErrors);
     process.exit(1);
   },
-  emptyStringAsUndefined: true,
-  experimental__runtimeEnv: process.env,
 });

@@ -7,7 +7,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["check-file"],
+  "plugins": ["check-file", "n"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -20,6 +20,7 @@
     "prefer-template": ["error"],
     "arrow-parens": ["error"],
     "arrow-body-style": ["error", "as-needed"],
+    "n/no-process-env": ["error"],
     "check-file/filename-naming-convention": [
       "error",
       {
