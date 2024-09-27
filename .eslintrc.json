@@ -16,6 +16,7 @@
       }
     ],
     "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": "error",
     "prefer-arrow-callback": ["error"],
     "prefer-template": ["error"],
     "arrow-parens": ["error"],
@@ -41,6 +42,5 @@
 // "extends": [
 //   "next/core-web-vitals",
 //   "
-
 
 // ],

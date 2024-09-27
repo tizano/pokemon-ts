@@ -21,7 +21,8 @@ export const pokemonRelations = relations(pokemon, ({ many }) => ({
 // Modèle PokemonType
 export const pokemonType = pgTable('pokemon_type', {
   id: uuid('id').defaultRandom().primaryKey(),
-  name: text('name').notNull().unique(),
+  slug: text('slug').notNull().unique(),
+  name: text('name').notNull(),
 });
 
 export const pokemonTypeRelations = relations(pokemonType, ({ many }) => ({

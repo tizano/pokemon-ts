@@ -8,6 +8,13 @@
       "when": 1726873578694,
       "tag": "0000_messy_pretty_boy",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1727330921653,
+      "tag": "0001_fat_grandmaster",
+      "breakpoints": true
     }
   ]
 }

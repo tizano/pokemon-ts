@@ -10,23 +10,23 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
-  // images: {
-  //   domains: ['localhost', 'pokemon.com', 'example.com'],
-  //   remotePatterns: [
-  //     {
-  //       protocol: 'http',
-  //       hostname: 'example.com',
-  //     },
-  //     {
-  //       protocol: 'https',
-  //       hostname: '**.pokemon.com',
-  //     },
-  //     {
-  //       protocol: 'http',
-  //       hostname: 'localhost',
-  //     },
-  //   ],
-  // },
+  images: {
+    domains: ['localhost', 'pokemon.com', 'example.com'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'example.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.pokemon.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+    ],
+  },
   // webpack: (config, { isServer }) => {
   //   if (!isServer) {
   //     console.log('isServer');

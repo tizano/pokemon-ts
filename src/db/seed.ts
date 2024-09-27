@@ -1,5 +1,5 @@
+import { NewCard, NewCardType, NewPokemon, NewPokemonToType, NewPokemonType } from '@/types/schema.type';
 import { card, cardType, pokemon, pokemonToType, pokemonType } from './schema/schema'; // Importez vos tables
-import { NewCard, NewCardType, NewPokemon, NewPokemonToType, NewPokemonType } from './schema/schema.type';
 
 import { db } from './connect';
 
@@ -13,7 +13,12 @@ async function clearBeforeSeed() {
 
 async function seed() {
   // Types de Pokémon
-  const pokemonTypes: NewPokemonType[] = [{ name: 'Électrique' }, { name: 'Eau' }, { name: 'Feu' }, { name: 'Plante' }];
+  const pokemonTypes: NewPokemonType[] = [
+    { name: 'Électrique', slug: 'electric' },
+    { name: 'Eau', slug: 'water' },
+    { name: 'Feu', slug: 'fire' },
+    { name: 'Plante', slug: 'grass' },
+  ];
   // Insérer les types de Pokémon
   await db.insert(pokemonType).values(pokemonTypes);
 
