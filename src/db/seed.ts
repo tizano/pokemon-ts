@@ -66,7 +66,7 @@ async function seed() {
     const apiPokemon = pokemonsToTransform.find((p) => p.name === dbPokemon.name);
     if (apiPokemon && apiPokemon.apiTypes.length > 0) {
       apiPokemon.apiTypes.forEach((apiType) => {
-        const typeId = insertedPokemonType.find((t) => t.name === apiType.name)?.id; // TODO : check EN / FR
+        const typeId = insertedPokemonType.find((t) => t.name === apiType.name)?.id;
         if (typeId) {
           pokemonToTypesToInsert.push({
             pokemonId: dbPokemon.id,
