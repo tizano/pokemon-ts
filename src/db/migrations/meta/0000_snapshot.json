@@ -1,5 +1,5 @@
 {
-  "id": "a10a42c4-d665-4dac-b027-28370fb1a21c",
+  "id": "b573868f-cb20-4de0-b395-171d96b10668",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -27,6 +27,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "pokedex_id": {
+          "name": "pokedex_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
         "image_url": {
           "name": "image_url",
           "type": "text",
@@ -38,7 +44,8 @@
           "type": "rarity",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "'common'"
         },
         "card_type_id": {
           "name": "card_type_id",
@@ -124,6 +131,12 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
+        "pokedex_id": {
+          "name": "pokedex_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
         "slug": {
           "name": "slug",
           "type": "text",
@@ -159,7 +172,13 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "pokemon_slug_unique": {
+          "name": "pokemon_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": ["slug"]
+        }
+      }
     },
     "public.pokemon_to_type": {
       "name": "pokemon_to_type",
@@ -213,6 +232,12 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "name": {
           "name": "name",
           "type": "text",
@@ -224,10 +249,10 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "pokemon_type_name_unique": {
-          "name": "pokemon_type_name_unique",
+        "pokemon_type_slug_unique": {
+          "name": "pokemon_type_slug_unique",
           "nullsNotDistinct": false,
-          "columns": ["name"]
+          "columns": ["slug"]
         }
       }
     }
@@ -236,7 +261,7 @@
     "public.rarity": {
       "name": "rarity",
       "schema": "public",
-      "values": ["common", "rare", "ultra_rare", "secret"]
+      "values": ["common", "uncommon", "rare", "ultra_rare", "secret", "promo"]
     }
   },
   "schemas": {},

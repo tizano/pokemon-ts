@@ -8,11 +8,6 @@ interface SearchBarProps {
   onValueChange?: (value: string) => void;
 }
 
-/**
- * Cajkshksdfh sdkfjh sdf
- * @param param0
- * @returns
- */
 const SearchBar: React.FC<SearchBarProps> = ({ queryParam, placeholder, onValueChange }) => {
   const [value, setValue] = useQueryState(queryParam, { defaultValue: '', clearOnDefault: true });
 

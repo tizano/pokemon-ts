@@ -11,8 +11,16 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
-    domains: ['localhost', 'pokemon.com', 'example.com'],
+    domains: ['localhost', 'pokemon.com', 'example.com', 'raw.githubusercontent.com', 'assets.tcgdex.net', 'high.webp'],
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'assets.tcgdex.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+      },
       {
         protocol: 'http',
         hostname: 'example.com',

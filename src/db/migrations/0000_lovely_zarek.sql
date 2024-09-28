@@ -1,5 +1,5 @@
 DO $$ BEGIN
- CREATE TYPE "public"."rarity" AS ENUM('common', 'rare', 'ultra_rare', 'secret');
+ CREATE TYPE "public"."rarity" AS ENUM('common', 'uncommon', 'rare', 'ultra_rare', 'secret', 'promo');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -8,8 +8,9 @@ CREATE TABLE IF NOT EXISTS "card" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"pokemon_id" uuid,
 	"card_number" text NOT NULL,
+	"pokedex_id" integer NOT NULL,
 	"image_url" text NOT NULL,
-	"rarity" "rarity" NOT NULL,
+	"rarity" "rarity" DEFAULT 'common' NOT NULL,
 	"card_type_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp
@@ -23,11 +24,13 @@ CREATE TABLE IF NOT EXISTS "card_type" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "pokemon" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"pokedex_id" integer NOT NULL,
 	"slug" text NOT NULL,
 	"name" text NOT NULL,
 	"image_url" text NOT NULL,
 	"created_at" timestamp DEFAULT now(),
-	"updated_at" timestamp
+	"updated_at" timestamp,
+	CONSTRAINT "pokemon_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "pokemon_to_type" (
@@ -37,8 +40,9 @@ CREATE TABLE IF NOT EXISTS "pokemon_to_type" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "pokemon_type" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"slug" text NOT NULL,
 	"name" text NOT NULL,
-	CONSTRAINT "pokemon_type_name_unique" UNIQUE("name")
+	CONSTRAINT "pokemon_type_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 DO $$ BEGIN

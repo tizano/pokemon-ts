@@ -1,10 +1,7 @@
-import { Pokemon, PokemonToType, PokemonType } from './schema.type';
-import { AddNullable } from './utils.type';
+import { Pokemon, PokemonType } from './schema.type';
 
-export type PokemonWithType = {
-  pokemon: Pokemon;
-  pokemon_type: PokemonType;
-  pokemon_to_type: AddNullable<PokemonToType> | null;
+export type PokemonWithType = Pokemon & {
+  types: PokemonType[];
 };
 
 export interface GetPokemonsProps {
@@ -13,3 +10,44 @@ export interface GetPokemonsProps {
   pokemonName?: string;
   pokemonTypeSlug?: string;
 }
+
+export type PokemonTypeForSeed = {
+  id: number;
+  name: string;
+  image: string;
+  englishName: string;
+};
+
+export type PokemonForSeed = {
+  id: number;
+  pokedexId: number;
+  name: string;
+  image: string;
+  sprite: string;
+  slug: string;
+  stats: {
+    HP: number;
+    attack: number;
+    defense: number;
+    special_attack: number;
+    special_defense: number;
+    speed: number;
+  };
+  apiTypes: Array<{
+    name: string;
+    image: string;
+  }>;
+  apiGeneration: number;
+  apiResistances: Array<{
+    name: string;
+    damage_multiplier: number;
+    damage_relation: 'neutral' | 'resistant' | 'vulnerable' | 'twice_resistant';
+  }>;
+  resistanceModifyingAbilitiesForApi: unknown[]; // Type plus précis si nécessaire
+  apiEvolutions: Array<{
+    name: string;
+    pokedexId: number;
+  }>;
+  apiPreEvolution: string;
+  apiResistancesWithAbilities: unknown[]; // Type plus précis si nécessaire
+};

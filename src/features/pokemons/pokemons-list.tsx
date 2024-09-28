@@ -12,9 +12,7 @@ import { useQueryState } from 'nuqs';
 import { useEffect, useState } from 'react';
 import Filter from './filter/filter';
 
-// const types = ['All', ...new Set(pokemonData.map((pokemon) => pokemon.type))];
-
-export const PokemonList = () => {
+export const PokemonsList = () => {
   const queryParam = 'name';
   const itemsPerPage = 3;
 
@@ -34,7 +32,7 @@ export const PokemonList = () => {
   const [pokemonsData, setPokemonsData] = useState<QueryWithPagination<PokemonWithType[]>>({
     data: [],
     page: 0,
-    itemsPerPage: itemsPerPage,
+    itemsPerPage,
     count: 0,
   });
 
@@ -42,13 +40,16 @@ export const PokemonList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getPokemons({
+      const result = await getPokemons({
         page: currentPage,
         itemsPerPage,
         pokemonName: debouncedSearchName,
         pokemonTypeSlug: currentType,
       });
-      setPokemonsData(data);
+
+      console.log('result', result);
+
+      setPokemonsData(result);
     };
     fetchData();
   }, [debouncedSearchName, currentPage, currentType]);
@@ -61,7 +62,6 @@ export const PokemonList = () => {
     }
   };
 
-  // sdfsdf
   const handleSearchValueChange = (value: string) => {
     resetPagination(value);
     console.info('search value change', value);
@@ -82,25 +82,35 @@ export const PokemonList = () => {
           onSelectValueChange={handleSelectValueChange}
         />
       </>
+
       {!pokemonsData.count && <div>No Pokémon found</div>}
       {pokemonsData.count && (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
           {pokemonsData.data.map((pokemonData) => (
-            <li key={pokemonData.pokemon.id}>
-              <Link href={`/pokemon/${pokemonData.pokemon.slug}`}>
+            <li key={pokemonData.id}>
+              <Link href={`/pokemon/${pokemonData.slug}`}>
                 <Card className="cursor-pointer hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <CardTitle>{pokemonData.pokemon.name}</CardTitle>
+                    <CardTitle>{pokemonData.name}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p>Type: {pokemonData.pokemon_type?.name}</p>
+                    <p>
+                      Type:{' '}
+                      {pokemonData.types.map((type) => (
+                        //add coma if not last element
+                        <span key={type.id}>
+                          {type.name}
+                          {pokemonData.types.indexOf(type) !== pokemonData.types.length - 1 && ', '}
+                        </span>
+                      ))}
+                    </p>
                     <Image
-                      src={pokemonData.pokemon.imageUrl}
-                      alt={`${pokemonData.pokemon.name} image`}
+                      src={pokemonData.imageUrl}
+                      alt={`${pokemonData.name} image`}
                       width={200}
                       height={200}
                       className="mt-2 rounded-md"
-                      priority={true}
+                      priority={false}
                     ></Image>
                   </CardContent>
                 </Card>

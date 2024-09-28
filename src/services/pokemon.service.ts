@@ -3,8 +3,8 @@ import { db } from '@/db/connect';
 import { pokemon, pokemonToType, pokemonType } from '@/db/schema/schema';
 import { GetPokemonsProps, PokemonWithType } from '@/types/pokemon.type';
 import { QueryWithPagination } from '@/types/query.type';
-import { NewPokemon } from '@/types/schema.type';
-import { and, asc, count, eq, ilike, SQL } from 'drizzle-orm';
+import { NewPokemon, PokemonType } from '@/types/schema.type';
+import { and, asc, eq, ilike, sql, SQL } from 'drizzle-orm';
 
 export const getPokemons = async ({
   page = 1,
@@ -22,17 +22,33 @@ export const getPokemons = async ({
     }
 
     const data = await db
-      .select()
+      .select({
+        id: pokemon.id,
+        pokedexId: pokemon.pokedexId,
+        slug: pokemon.slug,
+        name: pokemon.name,
+        imageUrl: pokemon.imageUrl,
+        createdAt: pokemon.createdAt,
+        updatedAt: pokemon.updatedAt,
+        types: sql<PokemonType[]>`json_agg(
+            json_build_object(
+              'id', ${pokemonType.id},
+              'name', ${pokemonType.name},
+              'slug', ${pokemonType.slug}
+            )
+          )`,
+      })
       .from(pokemon)
       .leftJoin(pokemonToType, eq(pokemon.id, pokemonToType.pokemonId))
       .leftJoin(pokemonType, eq(pokemonToType.typeId, pokemonType.id))
       .where(and(...where))
+      .groupBy(pokemon.id)
       .limit(itemsPerPage)
       .offset((page - 1) * itemsPerPage)
-      .orderBy(asc(pokemon.name));
+      .orderBy(asc(pokemon.pokedexId));
 
     const totalPages = await db
-      .select({ count: count(pokemon.id) })
+      .select({ count: sql<number>`count(distinct ${pokemon.id})` })
       .from(pokemon)
       .leftJoin(pokemonToType, eq(pokemon.id, pokemonToType.pokemonId))
       .leftJoin(pokemonType, eq(pokemonToType.typeId, pokemonType.id))
@@ -43,7 +59,7 @@ export const getPokemons = async ({
       page,
       itemsPerPage,
       count: totalPages[0].count,
-    } as QueryWithPagination<PokemonWithType[]>;
+    } satisfies QueryWithPagination<PokemonWithType[]>;
   } catch (error) {
     throw new Error(`Unable to fetch Pokemon : ${error}`);
   }
