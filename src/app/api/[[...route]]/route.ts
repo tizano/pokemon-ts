@@ -1,4 +1,4 @@
-import pokemonRoute from '@/server/routers/pokemon.route';
+import pokemonRoute from '@/routers/pokemon.route';
 import { Hono } from 'hono';
 import { handle } from 'hono/vercel';
 

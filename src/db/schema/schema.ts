@@ -1,7 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { integer, pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
-
-export const rarityEnum = pgEnum('rarity', ['common', 'uncommon', 'rare', 'ultra_rare', 'secret', 'promo']);
+import { integer, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 // Modèle Pokemon
 export const pokemon = pgTable('pokemon', {
@@ -54,28 +52,25 @@ export const card = pgTable('card', {
   cardNumber: text('card_number').notNull(),
   pokedexId: integer('pokedex_id').notNull(),
   imageUrl: text('image_url').notNull(),
-  rarity: rarityEnum('rarity').notNull().default('common'),
-  cardTypeId: uuid('card_type_id')
-    .references(() => cardType.id)
-    .notNull(),
+  rarityId: uuid('rarity_id').references(() => cardRarity.id),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(() => new Date()),
 });
 
 export const cardRelations = relations(card, ({ one }) => ({
   pokemon: one(pokemon, { fields: [card.pokemonId], references: [pokemon.id] }),
-  cardType: one(cardType, {
-    fields: [card.cardTypeId],
-    references: [cardType.id],
+  rarity: one(cardRarity, {
+    fields: [card.rarityId],
+    references: [cardRarity.id],
   }),
 }));
 
-// Modèle CardType
-export const cardType = pgTable('card_type', {
+export const cardRarity = pgTable('card_rarity', {
   id: uuid('id').defaultRandom().primaryKey(),
-  name: text('name').notNull().unique(),
+  slug: text('slug').notNull().unique(),
+  name: text('name').notNull(),
 });
 
-export const cardTypeRelations = relations(cardType, ({ many }) => ({
+export const cardRarityRelations = relations(cardRarity, ({ many }) => ({
   cards: many(card),
 }));

@@ -37,7 +37,15 @@
         "src/**/!^[.*": "KEBAB_CASE"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["./src/db/data/**/*"],
+      "rules": {
+        "check-file/filename-naming-convention": "off"
+      }
+    }
+  ]
 }
 // "extends": [
 //   "next/core-web-vitals",

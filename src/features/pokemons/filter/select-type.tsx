@@ -1,5 +1,5 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { PokemonType } from '@/types/schema.type';
+import { PokemonType } from '@/shared/types/schema.type';
 import { useQueryState } from 'nuqs';
 import React, { Suspense } from 'react';
 

@@ -1,4 +1,4 @@
-import { RarityEnum } from '@/types/schema.type';
+import { RarityEnum } from '@/shared/types/schema.type';
 
 export const rarityFrenchMapping: Record<string, RarityEnum> = {
   commune: 'common',

@@ -39,6 +39,7 @@
     "drizzle-orm": "^0.33.0",
     "eslint-plugin-check-file": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.10.0",
+    "framer-motion": "^11.9.0",
     "hono": "^4.5.10",
     "husky": "^9.1.6",
     "install": "^0.13.0",

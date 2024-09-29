@@ -1,8 +1,8 @@
 'use client';
 
 import { getPokemonTypes } from '@/services/pokemon-type.service';
-import { CustomQuery } from '@/types/query.type';
-import { PokemonType } from '@/types/schema.type';
+import { CustomQuery } from '@/shared/types/query.type';
+import { PokemonType } from '@/shared/types/schema.type';
 import { useEffect, useState } from 'react';
 import SearchBar from './search-bar';
 import SelectType from './select-type';

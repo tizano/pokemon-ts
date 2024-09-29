@@ -1,9 +1,9 @@
 'use server';
 import { db } from '@/db/connect';
 import { pokemon, pokemonToType, pokemonType } from '@/db/schema/schema';
-import { GetPokemonsProps, PokemonWithType } from '@/types/pokemon.type';
-import { QueryWithPagination } from '@/types/query.type';
-import { NewPokemon, PokemonType } from '@/types/schema.type';
+import { GetPokemonsProps, PokemonWithType } from '@/shared/types/pokemon.type';
+import { QueryWithPagination } from '@/shared/types/query.type';
+import { NewPokemon, PokemonType } from '@/shared/types/schema.type';
 import { and, asc, eq, ilike, sql, SQL } from 'drizzle-orm';
 
 export const getPokemons = async ({

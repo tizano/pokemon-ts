@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
-jiti('./src/env/server.ts');
+jiti('./src/config/env.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -11,7 +11,6 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
-    domains: ['localhost', 'pokemon.com', 'example.com', 'raw.githubusercontent.com', 'assets.tcgdex.net', 'high.webp'],
     remotePatterns: [
       {
         protocol: 'https',

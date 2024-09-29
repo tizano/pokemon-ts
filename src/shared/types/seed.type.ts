@@ -1,15 +1,15 @@
-import { Pokemon, PokemonType } from './schema.type';
-
-export type PokemonWithType = Pokemon & {
-  types: PokemonType[];
+export type CardForSeed = {
+  localId: string;
+  dexId: number[] | null;
+  types: string[] | null;
+  rarity: string;
+  name: string;
+  image: string | null;
 };
 
-export interface GetPokemonsProps {
-  page?: number;
-  itemsPerPage?: number;
-  pokemonName?: string;
-  pokemonTypeSlug?: string;
-}
+export type CardsForSeed = Array<{
+  cards: CardForSeed[];
+}>;
 
 export type PokemonTypeForSeed = {
   id: number;

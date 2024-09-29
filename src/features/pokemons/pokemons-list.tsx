@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Pagination } from '@/components/ui/pagination/pagination';
 import useDebounce from '@/hooks/use-debounce';
 import { getPokemons } from '@/services/pokemon.service';
-import { PokemonWithType } from '@/types/pokemon.type';
-import { QueryWithPagination } from '@/types/query.type';
+import { PokemonWithType } from '@/shared/types/pokemon.type';
+import { QueryWithPagination } from '@/shared/types/query.type';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useQueryState } from 'nuqs';
@@ -14,7 +14,7 @@ import Filter from './filter/filter';
 
 export const PokemonsList = () => {
   const queryParam = 'name';
-  const itemsPerPage = 3;
+  const itemsPerPage = 30;
 
   const [currentType] = useQueryState<string>('type', {
     defaultValue: '',
@@ -46,8 +46,6 @@ export const PokemonsList = () => {
         pokemonName: debouncedSearchName,
         pokemonTypeSlug: currentType,
       });
-
-      console.log('result', result);
 
       setPokemonsData(result);
     };

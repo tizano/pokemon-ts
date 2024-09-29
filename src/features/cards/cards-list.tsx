@@ -1,14 +1,14 @@
 'use client';
 
-import { capitalize, removeDigitFromSlug } from '@/lib/utils';
 import { getCardsByPokemon } from '@/services/card.service';
-import { CardWithPokemon } from '@/types/card.type';
-import { CustomQuery } from '@/types/query.type';
+import { CardWithPokemonAndRarity } from '@/shared/types/card.type';
+import { CustomQuery } from '@/shared/types/query.type';
+import { capitalize, removeDigitFromSlug } from '@/shared/utils/utils';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export const CardsList = ({ pokemonSlug }: { pokemonSlug: string }) => {
-  const [cardsData, setCardsData] = useState<CustomQuery<CardWithPokemon[]>>({
+  const [cardsData, setCardsData] = useState<CustomQuery<CardWithPokemonAndRarity[]>>({
     data: [],
   });
 
@@ -16,11 +16,11 @@ export const CardsList = ({ pokemonSlug }: { pokemonSlug: string }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCardsByPokemon({ pokemonSlug: clearedSlug });
+      const data = await getCardsByPokemon({ pokemonSlug });
       setCardsData(data);
     };
     fetchData();
-  }, [clearedSlug]);
+  }, [clearedSlug, pokemonSlug]);
 
   return (
     <div className="container mx-auto p-4">
@@ -30,20 +30,24 @@ export const CardsList = ({ pokemonSlug }: { pokemonSlug: string }) => {
       {!cardsData.data.length && <div>No Pokémon found</div>}
       {cardsData.data && (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-          {cardsData.data.map((cardData) => (
-            <li key={cardData.card.id}>
-              <h2 className="text-lg font-bold">Card NB {cardData.card.cardNumber}</h2>
-              <pre className="text-lg font-bold">Pokedex ID {cardData.card.pokedexId}</pre>
-              <Image
-                src={cardData.card.imageUrl}
-                alt={`${cardData.pokemon?.name} image`}
-                width={200}
-                height={200}
-                className="mt-2 rounded-md"
-                priority={false}
-              />
-            </li>
-          ))}
+          {cardsData.data.map(
+            (cardData) =>
+              cardData.imageUrl && (
+                <li key={cardData.id}>
+                  <h2 className="text-lg font-bold">Card NB {cardData.cardNumber}</h2>
+                  <p className="text-lg font-bold">Pokedex ID {cardData.pokedexId}</p>
+                  <p className="text-lg font-bold">Rarity {cardData.rarity?.slug}</p>
+                  <Image
+                    src={cardData.imageUrl}
+                    alt={`${cardData.pokemon?.name} image`}
+                    width={200}
+                    height={200}
+                    className="mt-2 rounded-md"
+                    priority={false}
+                  />
+                </li>
+              ),
+          )}
         </ul>
       )}
     </div>
