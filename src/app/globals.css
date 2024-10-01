@@ -29,6 +29,26 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    --pokemon-bg: #e15560;
+    --pokemon-type-bug: #94bc4a;
+    --pokemon-type-dark: #736c75;
+    --pokemon-type-dragon: #6a7baf;
+    --pokemon-type-electric: #e5c531;
+    --pokemon-type-fairy: #e397d1;
+    --pokemon-type-fighting: #cb5f48;
+    --pokemon-type-fire: #ea7a3c;
+    --pokemon-type-flying: #7da6de;
+    --pokemon-type-ghost: #846ab6;
+    --pokemon-type-grass: #71c558;
+    --pokemon-type-ground: #cc9f4f;
+    --pokemon-type-ice: #70cbd4;
+    --pokemon-type-normal: #aab09f;
+    --pokemon-type-poison: #b468b7;
+    --pokemon-type-psychic: #e5709b;
+    --pokemon-type-rock: #b2a061;
+    --pokemon-type-steel: #89a1b0;
+    --pokemon-type-water: #539ae2;
   }
 
   .dark {

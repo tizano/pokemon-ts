@@ -1,9 +1,12 @@
+'use client';
+import Loader from '@/components/ui/loader/loader';
 import { PokemonsList } from '@/features/pokemons/pokemons-list';
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <>
+      <Loader />
       <PokemonsList />
-    </main>
+    </>
   );
 }
