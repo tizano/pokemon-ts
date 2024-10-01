@@ -1,25 +1,34 @@
-'use client';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const useIntro = () => {
+  const [showIntro, setShowIntro] = useState(false);
   const pathname = usePathname();
-  const [hasTimePassed, setHasTimePassed] = useState(false);
 
   useEffect(() => {
-    const timeLimit = 3 * 60 * 60 * 1000; // 3 hours
-    const currTimestamp = Date.now();
-    const storedTimestamp = localStorage.getItem(`timestamp${pathname}`) || '1000';
-    console.log('storedTimestamp -- ', storedTimestamp);
-    const timestamp = parseInt(storedTimestamp, 10);
+    const checkIntroStatus = () => {
+      const storage = window.localStorage;
+      const currTimestamp = Date.now();
+      const storedTimestamp = parseInt(storage.getItem(`timestamp${pathname}`) || '0', 10);
+      const timeLimit = 3 * 60 * 60 * 1000; // 3 heures
 
-    const timePassed = currTimestamp - timestamp > timeLimit;
-    setHasTimePassed(timePassed);
+      const hasTimePassed = currTimestamp - storedTimestamp > timeLimit;
 
-    if (timePassed) {
-      localStorage.setItem(`timestamp${pathname}`, currTimestamp.toString());
-    }
+      if (hasTimePassed) {
+        storage.setItem(`timestamp${pathname}`, currTimestamp.toString());
+        setShowIntro(true);
+      } else {
+        setShowIntro(false);
+      }
+    };
+
+    // Utiliser un timeout pour s'assurer que ce code s'exécute après le rendu initial
+    const timeoutId = setTimeout(checkIntroStatus, 0);
+
+    return () => clearTimeout(timeoutId);
   }, [pathname]);
 
-  return hasTimePassed;
+  return showIntro;
 };
+
+export default useIntro;

@@ -14,6 +14,9 @@ const config = {
     },
     extend: {
       colors: {
+        'pokemon-bg': 'var(--pokemon-bg)',
+        'pokemon-bg-dark': 'var(--pokemon-bg-dark)',
+        'pokemon-type-ghost': 'var(--pokemon-type-ghost)',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
