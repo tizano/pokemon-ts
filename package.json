@@ -2,6 +2,9 @@
   "name": "pokemon-cards-ts",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Tizano"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
