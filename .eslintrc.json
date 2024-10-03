@@ -5,7 +5,8 @@
     "plugin:jsx-a11y/recommended",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:@tanstack/query/recommended"
   ],
   "plugins": ["check-file", "n"],
   "rules": {

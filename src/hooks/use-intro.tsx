@@ -17,8 +17,10 @@ export const useIntro = () => {
       if (hasTimePassed) {
         storage.setItem(`timestamp${pathname}`, currTimestamp.toString());
         setShowIntro(true);
+        document.body.style.overflow = 'hidden';
       } else {
         setShowIntro(false);
+        document.body.style.overflowY = 'scroll';
       }
     };
 

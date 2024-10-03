@@ -1,3 +1,4 @@
+import ReactQueryClientProvider from '@/lib/react-query-client-provider';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -15,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
-      <body className={inter.className}>
-        <main className="block min-h-screen">{children}</main>
-      </body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="fr">
+        <body className={inter.className}>
+          <main className="block min-h-screen">{children}</main>
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }

@@ -32,12 +32,9 @@ export const getCardsByPokemon = async ({
       })
       .from(card)
       .leftJoin(pokemon, eq(pokemon.id, card.pokemonId))
-      // add left join to get the pokemon card rarity
       .leftJoin(cardRarity, eq(cardRarity.id, card.rarityId))
       .where(eq(pokemon.slug, `${pokemonSlug}`))
       .orderBy(asc(card.cardNumber));
-    console.log(`${pokemonSlug}`);
-
     return {
       data,
     } satisfies CustomQuery<CardWithPokemonAndRarity[]>;

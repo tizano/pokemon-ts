@@ -1,7 +1,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PokemonType } from '@/shared/types/schema.type';
 import { useQueryState } from 'nuqs';
-import React, { Suspense } from 'react';
+import React from 'react';
 
 interface SelectTypeProps {
   pokemonTypes: PokemonType[];
@@ -34,20 +34,18 @@ const SelectType: React.FC<SelectTypeProps> = ({ pokemonTypes, onValueChange }) 
   };
 
   return (
-    <Suspense>
-      <Select value={selectedType} onValueChange={(typeSlug) => handleValueChange(typeSlug)}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select type" />
-        </SelectTrigger>
-        <SelectContent>
-          {pokemonTypesList.map((pokemonType) => (
-            <SelectItem key={pokemonType.id} value={pokemonType.slug}>
-              {pokemonType.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </Suspense>
+    <Select value={selectedType} onValueChange={(typeSlug) => handleValueChange(typeSlug)}>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select type" />
+      </SelectTrigger>
+      <SelectContent>
+        {pokemonTypesList.map((pokemonType) => (
+          <SelectItem key={pokemonType.id} value={pokemonType.slug}>
+            {pokemonType.name}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };
 

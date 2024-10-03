@@ -1,3 +1,4 @@
+'use client';
 import { AnimatePresence } from 'framer-motion';
 import * as motion from 'framer-motion/client';
 import Image from 'next/image';
@@ -61,7 +62,7 @@ export default function Loader() {
                 x: { delay: 1.75, duration: 0.5 },
               }}
             >
-              <Image src="/loader/pokeball.svg" alt="Pokeball animation" width={75} height={75} />
+              <Image src="/loader/pokeball.svg" alt="Pokeball animation" width={75} height={75} priority={true} />
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: -36, x: -50 }}
@@ -78,10 +79,15 @@ export default function Loader() {
                 setTimeout(() => {
                   setIsLoading(false);
                 }, 500);
-                console.log('animation complete');
               }}
             >
-              <Image src="/loader/pokemon-logo-black.svg" alt="Pokemon logo avec animation" width={350} height={150} />
+              <Image
+                src="/loader/pokemon-logo-black.svg"
+                alt="Pokemon logo avec animation"
+                width={350}
+                height={150}
+                priority={true}
+              />
             </motion.div>
           </motion.div>
         )}

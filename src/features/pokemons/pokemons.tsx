@@ -1,18 +1,17 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pagination } from '@/components/ui/pagination/pagination';
+import { Pagination } from '@/components/pagination/pagination';
+import { PokemonBadge } from '@/components/pokemon-badge/pokemon-badge';
 import useDebounce from '@/hooks/use-debounce';
 import { getPokemons } from '@/services/pokemon.service';
 import { PokemonWithType } from '@/shared/types/pokemon.type';
 import { QueryWithPagination } from '@/shared/types/query.type';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useQueryState } from 'nuqs';
 import { useEffect, useState } from 'react';
 import Filter from './filter/filter';
 
-export const PokemonsList = () => {
+export const Pokemons = () => {
   const queryParam = 'name';
   const itemsPerPage = 30;
 
@@ -52,13 +51,7 @@ export const PokemonsList = () => {
     fetchData();
   }, [debouncedSearchName, currentPage, currentType]);
 
-  const resetPagination = (value: string = '') => {
-    if (value === '') {
-      setCurrentPage(null);
-    } else {
-      setCurrentPage(1);
-    }
-  };
+  const resetPagination = (value: string = '') => (value === '' ? setCurrentPage(null) : setCurrentPage(1));
 
   const handleSearchValueChange = (value: string) => {
     resetPagination(value);
@@ -73,13 +66,11 @@ export const PokemonsList = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Pokémon Listing</h1>
-      <>
-        <Filter
-          queryParam={queryParam}
-          onSearchValueChange={handleSearchValueChange}
-          onSelectValueChange={handleSelectValueChange}
-        />
-      </>
+      <Filter
+        queryParam={queryParam}
+        onSearchValueChange={handleSearchValueChange}
+        onSelectValueChange={handleSelectValueChange}
+      />
 
       {!pokemonsData.count && <div>No Pokémon found</div>}
       {pokemonsData.count && (
@@ -87,31 +78,7 @@ export const PokemonsList = () => {
           {pokemonsData.data.map((pokemonData) => (
             <li key={pokemonData.id}>
               <Link href={`/pokemon/${pokemonData.slug}`}>
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle>{pokemonData.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>
-                      Type:{' '}
-                      {pokemonData.types.map((type) => (
-                        //add coma if not last element
-                        <span key={type.id}>
-                          {type.name}
-                          {pokemonData.types.indexOf(type) !== pokemonData.types.length - 1 && ', '}
-                        </span>
-                      ))}
-                    </p>
-                    <Image
-                      src={pokemonData.imageUrl}
-                      alt={`${pokemonData.name} image`}
-                      width={200}
-                      height={200}
-                      className="mt-2 rounded-md"
-                      priority={false}
-                    ></Image>
-                  </CardContent>
-                </Card>
+                <PokemonBadge pokemon={pokemonData} />
               </Link>
             </li>
           ))}
