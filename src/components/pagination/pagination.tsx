@@ -6,7 +6,7 @@ interface PaginationProps {
   itemsPerPage: number;
 }
 
-export const Pagination = ({ itemsPerPage, totalItems }: PaginationProps) => {
+export const Pagination: React.FC<PaginationProps> = ({ itemsPerPage, totalItems }) => {
   const { currentPage, lastPage, hasNextPage, hasPreviousPage, goToNextPage, goToPreviousPage } = usePagination({
     totalItems,
     itemsPerPage,

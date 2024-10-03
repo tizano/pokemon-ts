@@ -1,4 +1,4 @@
-import ReactQueryClientProvider from '@/lib/react-query-client-provider';
+import ReactQueryClientProvider from '@/lib/providers/react-query-client-provider';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';

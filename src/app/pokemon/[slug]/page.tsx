@@ -1,10 +1,14 @@
 import { ButtonBack } from '@/components/button-back/button-back';
 import { Cards } from '@/features/cards/cards';
 import { cardsQueryOptions } from '@/features/cards/cards-query-options';
-import getQueryClient from '@/lib/get-query-client';
+import getQueryClient from '@/lib/providers/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-export default function PokemonDetailPage({ params }: { params: { slug: string } }) {
+interface PokemonDetailPageProps {
+  params: { slug: string };
+}
+
+export default function PokemonDetailPage({ params }: PokemonDetailPageProps) {
   const { slug } = params;
   const queryClient = getQueryClient();
   queryClient.prefetchQuery(cardsQueryOptions(slug));

@@ -4,7 +4,7 @@ import * as motion from 'framer-motion/client';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-export default function Loader() {
+export const Loader = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -94,4 +94,4 @@ export default function Loader() {
       </AnimatePresence>
     </div>
   );
-}
+};
