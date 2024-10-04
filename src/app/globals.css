@@ -4,8 +4,13 @@
 
 @layer base {
   :root {
-    --pokemon-bg: #9681bb;
-    --pokemon-bg-dark: #564a6b;
+    --color-white: #fafafa;
+    --color-black: #1d1d1d;
+
+    --pokemon-bg-100: #efe7f4;
+    --pokemon-bg-400: #5b34b5;
+    --pokemon-bg-600: #50386d;
+    --pokemon-bg-900: #190d35;
     --pokemon-type-bug: #94bc4a;
     --pokemon-type-dark: #736c75;
     --pokemon-type-dragon: #6a7baf;
@@ -32,7 +37,7 @@
     --popover: 262 100% 95%;
     --popover-foreground: 262 100% 10%;
     --primary: 262 58% 33%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 0 0% 98%;
     --secondary: 262 30% 70%;
     --secondary-foreground: 0 0% 0%;
     --muted: 224 30% 85%;
@@ -44,7 +49,7 @@
     --border: 262 30% 50%;
     --input: 262 30% 35%;
     --ring: 262 58% 33%;
-    --radius: 0.75rem;
+    --radius: 2rem;
   }
   .dark {
     --background: 262 50% 10%;
@@ -66,7 +71,7 @@
     --border: 262 30% 35%;
     --input: 262 30% 35%;
     --ring: 262 58% 33%;
-    --radius: 0.75rem;
+    --radius: 2rem;
   }
 }
 
@@ -75,6 +80,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-pokemon-bg-900 text-white overflow-x-hidden;
+    color: var(--color-black);
   }
 }

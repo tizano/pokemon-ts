@@ -1,5 +1,6 @@
 'use client';
 
+import { Container } from '@/components/container/container';
 import { Pagination } from '@/components/pagination/pagination';
 import { PokemonBadge } from '@/components/pokemon-badge/pokemon-badge';
 import useDebounce from '@/hooks/use-debounce';
@@ -64,8 +65,8 @@ export const Pokemons = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Pokémon Listing</h1>
+    <Container htmlTag="section" className="relative z-10">
+      <h1 className="fluid-2xl font-bold mb-4">Pokémon Listing</h1>
       <Filter
         queryParam={queryParam}
         onSearchValueChange={handleSearchValueChange}
@@ -74,7 +75,7 @@ export const Pokemons = () => {
 
       {!pokemonsData.count && <div>No Pokémon found</div>}
       {pokemonsData.count && (
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-6  mb-4">
           {pokemonsData.data.map((pokemonData) => (
             <li key={pokemonData.id}>
               <Link href={`/pokemon/${pokemonData.slug}`}>
@@ -87,6 +88,6 @@ export const Pokemons = () => {
       {pokemonsData.count > pokemonsData.itemsPerPage && (
         <Pagination itemsPerPage={pokemonsData.itemsPerPage} totalItems={pokemonsData.count} />
       )}
-    </div>
+    </Container>
   );
 };

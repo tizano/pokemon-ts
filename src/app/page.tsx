@@ -1,4 +1,5 @@
 'use client';
+import { Hero } from '@/components/hero/hero';
 import { Loader } from '@/components/loader/loader';
 import { Pokemons } from '@/features/pokemons/pokemons';
 import useIntro from '@/hooks/use-intro';
@@ -10,6 +11,7 @@ export default function Page() {
   return (
     <Suspense>
       {showIntro && <Loader />}
+      <Hero />
       <Pokemons />
     </Suspense>
   );

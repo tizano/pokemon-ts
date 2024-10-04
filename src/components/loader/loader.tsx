@@ -18,14 +18,14 @@ export const Loader = () => {
   return (
     <div
       className={`
-      h-screen w-screen fixed top-0 left-0 flex gap-8 overflow-hidden
+      h-screen w-screen fixed z-50 top-0 left-0 flex gap-8 overflow-hidden
       ${isLoading ? '' : 'pointer-events-none'}
     `}
     >
       <AnimatePresence>
         {isLoading && (
           <motion.div
-            className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pokemon-bg to-pokemon-bg-dark w-full h-full flex items-center justify-center gap-6"
+            className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pokemon-bg-400 to-pokemon-bg-900 w-full h-full flex items-center justify-center gap-6"
             initial={{
               opacity: 1,
               y: '-100vh',
