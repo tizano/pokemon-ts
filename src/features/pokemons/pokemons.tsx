@@ -75,7 +75,7 @@ export const Pokemons = () => {
 
       {!pokemonsData.count && <div>No Pokémon found</div>}
       {pokemonsData.count && (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-6  mb-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-6  mb-14">
           {pokemonsData.data.map((pokemonData) => (
             <li key={pokemonData.id}>
               <Link href={`/pokemon/${pokemonData.slug}`}>

@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import usePagination from '@/hooks/use-pagination';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PaginationProps {
   totalItems: number;
@@ -13,12 +14,20 @@ export const Pagination: React.FC<PaginationProps> = ({ itemsPerPage, totalItems
   });
 
   return (
-    <div className="flex justify-center gap-2">
-      {hasPreviousPage && <Button onClick={goToPreviousPage}>Previous</Button>}
-      <span className="self-center">
-        Page {currentPage} of {lastPage}
+    <div className="flex justify-center gap-4">
+      {hasPreviousPage && (
+        <Button size="sm" onClick={goToPreviousPage}>
+          <ChevronLeft size={20} />
+        </Button>
+      )}
+      <span className="self-center text-white">
+        Page {currentPage} sur {lastPage}
       </span>
-      {hasNextPage && <Button onClick={goToNextPage}>Next</Button>}
+      {hasNextPage && (
+        <Button size="sm" onClick={goToNextPage}>
+          <ChevronRight size={20} />
+        </Button>
+      )}
     </div>
   );
 };
