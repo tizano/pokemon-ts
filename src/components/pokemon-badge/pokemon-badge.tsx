@@ -60,7 +60,7 @@ export const PokemonBadge: React.FC<PokemonBadgeProps> = ({ pokemon }) => {
         </div>
       </div>
       <div className="mr-2 group-hover:translate-x-2 transition-transform">
-        <ChevronRight className="text-gray-800" size={32} />
+        <ChevronRight className="text-pokemon-bg-900" size={32} />
       </div>
     </div>
   );

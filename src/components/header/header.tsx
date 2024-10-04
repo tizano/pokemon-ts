@@ -5,6 +5,7 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import * as motion from 'framer-motion/client';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRef, useState } from 'react';
 
 export const Header = () => {
@@ -33,13 +34,13 @@ export const Header = () => {
     >
       <Container htmlTag="div" className="relative z-10">
         <div className="flex items-center justify-between p-4">
-          <div>
+          <Link href="/">
             <Image src="/loader/pokemon-logo-black.svg" alt="Pokemon logo" width={150} height={55} />
-          </div>
+          </Link>
           <div className="flex gap-4">
             <Button>
               <Plus className="mr-2" size={16} />
-              <span className="text-xs">Ajouter un Pokemon</span>
+              <span className="text-xs">Ajouter un Pokémon</span>
             </Button>
             <Button>
               <Plus className="mr-2" size={16} />

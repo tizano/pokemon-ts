@@ -10,7 +10,7 @@ export const ButtonBack = ({
 }>) => {
   const router = useRouter();
   return (
-    <Button className={className} onClick={() => router.back()}>
+    <Button className={className} variant={'outline'} onClick={() => router.back()}>
       {children}
     </Button>
   );

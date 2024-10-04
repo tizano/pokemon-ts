@@ -1,6 +1,5 @@
 'use client';
 
-import { Container } from '@/components/container/container';
 import { Pagination } from '@/components/pagination/pagination';
 import { PokemonBadge } from '@/components/pokemon-badge/pokemon-badge';
 import useDebounce from '@/hooks/use-debounce';
@@ -65,12 +64,13 @@ export const Pokemons = () => {
   };
 
   return (
-    <Container htmlTag="section" className="relative z-10">
-      <h1 className="fluid-2xl font-bold mb-4">Pokémon Listing</h1>
+    <>
       <Filter
         queryParam={queryParam}
         onSearchValueChange={handleSearchValueChange}
         onSelectValueChange={handleSelectValueChange}
+        className="mb-8"
+        placeholder="Rechercher un Pokémon"
       />
 
       {!pokemonsData.count && <div>No Pokémon found</div>}
@@ -88,6 +88,6 @@ export const Pokemons = () => {
       {pokemonsData.count > pokemonsData.itemsPerPage && (
         <Pagination itemsPerPage={pokemonsData.itemsPerPage} totalItems={pokemonsData.count} />
       )}
-    </Container>
+    </>
   );
 };

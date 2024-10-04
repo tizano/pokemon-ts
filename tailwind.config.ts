@@ -60,8 +60,9 @@ const config = {
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: 'hsl(var(--pokemon-bg-900))',
+          foreground: 'hsl(var(--pokemon-bg-900))',
+          background: 'hsl(var(--pokemon-bg-900))',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',

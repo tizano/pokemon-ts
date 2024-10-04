@@ -1,4 +1,5 @@
 'use client';
+import { Container } from '@/components/container/container';
 import { Hero } from '@/components/hero/hero';
 import { Loader } from '@/components/loader/loader';
 import { Pokemons } from '@/features/pokemons/pokemons';
@@ -11,8 +12,15 @@ export default function Page() {
   return (
     <Suspense>
       {showIntro && <Loader />}
-      <Hero />
-      <Pokemons />
+      <Container htmlTag="section" className="relative z-10">
+        <div className="flex justify-center w-full mb-16">
+          <h1 className="text-fluid-lg text-white w-1/2 leading-tight text-center">
+            Cherches ton Pokémon préféré et regardes toutes les cartes associées
+          </h1>
+        </div>
+        <Hero />
+        <Pokemons />
+      </Container>
     </Suspense>
   );
 }

@@ -1,8 +1,9 @@
 import { Container } from '@/components/container/container';
+import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 
 export const Hero = () => (
-  <Container htmlTag="section" className="relative z-10">
+  <Container htmlTag="section" className="relative z-10 mb-8">
     <div className="flex gap-10 justify-between items-center">
       <h1 className="text-fluid-3xl font-bold text-white leading-none w-[448px] fhd:translate-x-[180px] translate-x-[330px] z-20">
         Gères ta collection de cartes
@@ -24,5 +25,8 @@ export const Hero = () => (
     <div className="rounded-l-full h-[400px] w-8/12">
       <Image src="/hero/hero-3.png" alt="Pokemon logo" width={2000} height={600} objectFit="cover" />
     </div> */}
+    <div className="flex justify-center mt-8">
+      <ChevronDown className="text-white animate-bounce transition-all" size={40} />
+    </div>
   </Container>
 );

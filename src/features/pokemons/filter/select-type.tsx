@@ -12,7 +12,7 @@ const SelectType: React.FC<SelectTypeProps> = ({ pokemonTypes, onValueChange }) 
   const defaultTypeValue: PokemonType = {
     id: 'all',
     slug: 'all',
-    name: 'Tous',
+    name: 'Tous les types',
   };
 
   const [selectedType, setSelectedType] = useQueryState<string>('type', {

@@ -30,11 +30,11 @@
     --pokemon-type-steel: #89a1b0;
     --pokemon-type-water: #539ae2;
 
-    --background: 262 100% 95%;
+    --background: 0 0% 98%;
     --foreground: 262 5% 10%;
     --card: 262 50% 90%;
     --card-foreground: 262 5% 15%;
-    --popover: 262 100% 95%;
+    --popover: 0 0% 98%;
     --popover-foreground: 262 100% 10%;
     --primary: 262 58% 33%;
     --primary-foreground: 0 0% 98%;
@@ -47,28 +47,6 @@
     --destructive: 0 100% 35%;
     --destructive-foreground: 262 5% 90%;
     --border: 262 30% 50%;
-    --input: 262 30% 35%;
-    --ring: 262 58% 33%;
-    --radius: 2rem;
-  }
-  .dark {
-    --background: 262 50% 10%;
-    --foreground: 262 5% 90%;
-    --card: 262 50% 10%;
-    --card-foreground: 262 5% 90%;
-    --popover: 262 50% 5%;
-    --popover-foreground: 262 5% 90%;
-    --primary: 262 58% 33%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 262 30% 20%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 224 30% 25%;
-    --muted-foreground: 262 5% 60%;
-    --accent: 224 30% 25%;
-    --accent-foreground: 262 5% 90%;
-    --destructive: 0 100% 35%;
-    --destructive-foreground: 262 5% 90%;
-    --border: 262 30% 35%;
     --input: 262 30% 35%;
     --ring: 262 58% 33%;
     --radius: 2rem;

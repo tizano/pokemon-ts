@@ -7,17 +7,15 @@ import { useEffect, useState } from 'react';
 import SearchBar from './search-bar';
 import SelectType from './select-type';
 
-const Filter = ({
-  queryParam,
-  placeholder,
-  onSearchValueChange,
-  onSelectValueChange,
-}: {
+interface FilterProps {
   queryParam: string;
   placeholder?: string;
   onSearchValueChange?: (value: string) => void;
   onSelectValueChange: (value: string) => void;
-}) => {
+  className?: string;
+}
+
+const Filter = ({ queryParam, placeholder, onSearchValueChange, onSelectValueChange, className }: FilterProps) => {
   const [pokemonTypesData, setPokemonTypesData] = useState<CustomQuery<PokemonType[]>>({ data: [] });
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +25,7 @@ const Filter = ({
     fetchData();
   }, [queryParam]);
   return (
-    <div className="flex gap-4 mb-4">
+    <div className={`flex gap-4 mb-4 ${className}`}>
       <SearchBar queryParam={queryParam} onValueChange={onSearchValueChange} placeholder={placeholder} />
       <SelectType pokemonTypes={pokemonTypesData.data} onValueChange={onSelectValueChange} />
     </div>
