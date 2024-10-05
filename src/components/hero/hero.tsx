@@ -14,7 +14,6 @@ export const Hero = () => (
           alt="Pokemon logo"
           width={1024}
           height={600}
-          objectFit="cover"
           className="rounded-l-full h-[500px] object-cover object-left-top absolute top-0 fhd:-right-[20vw] -right-[25vw] w-[75vw] overflow-hidden"
         />
       </div>

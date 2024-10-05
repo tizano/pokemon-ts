@@ -8,11 +8,11 @@ export const Loader = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (isLoading) {
-      document.body.style.overflow = 'hidden';
-    } else {
+    document.body.style.overflowY = isLoading ? 'hidden' : 'scroll';
+
+    return () => {
       document.body.style.overflowY = 'scroll';
-    }
+    };
   }, [isLoading]);
 
   return (
