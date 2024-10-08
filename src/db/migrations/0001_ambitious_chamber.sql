@@ -1,0 +1,1 @@
+ALTER TABLE "pokemon" ADD CONSTRAINT "pokemon_pokedex_id_unique" UNIQUE("pokedex_id");

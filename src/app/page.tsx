@@ -7,20 +7,23 @@ import useIntro from '@/hooks/use-intro';
 import { Suspense } from 'react';
 
 export default function Page() {
-  const showIntro = useIntro();
-
+  const { showIntro, introFinished } = useIntro();
   return (
-    <Suspense>
+    <>
       {showIntro && <Loader />}
-      <Container htmlTag="section" className="relative z-10">
-        <div className="flex justify-center w-full mb-16">
-          <h1 className="text-fluid-lg text-white w-1/2 leading-tight text-center">
-            Cherches ton Pokémon préféré et regardes toutes les cartes associées
-          </h1>
-        </div>
-        <Hero />
-        <Pokemons />
-      </Container>
-    </Suspense>
+      {introFinished && (
+        <Container htmlTag="section" className="relative z-10">
+          <Hero />
+          <div className="flex justify-center w-full mb-16">
+            <h1 className="text-fluid-lg text-white w-1/2 leading-tight text-center">
+              Cherches ton Pokémon préféré et regardes toutes les cartes associées
+            </h1>
+          </div>
+          <Suspense>
+            <Pokemons />
+          </Suspense>
+        </Container>
+      )}
+    </>
   );
 }

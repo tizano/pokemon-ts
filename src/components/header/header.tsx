@@ -1,19 +1,39 @@
 'use client';
 import { Container } from '@/components/container/container';
-import { Button } from '@/components/ui/button';
-import { useMotionValueEvent, useScroll } from 'framer-motion';
+import { CreateCardForm } from '@/features/cards/forms/create-card-form';
+import { CreatePokemonForm } from '@/features/pokemons/forms/create-pokemon-form';
+import { useDialog } from '@/hooks/use-dialog';
+import { cn } from '@/lib/utils/utils';
+import { AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion';
 import * as motion from 'framer-motion/client';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
+import { PokemonDialog } from '../pokemon-dialog/pokemon-dialog';
+import { Button } from '../ui/button';
+
+const MODAL_CONTENTS = [
+  {
+    title: 'Ajouter un Pokémon',
+    description: 'Ajoute un Pokémon à liste',
+    Component: CreatePokemonForm,
+  },
+  {
+    title: 'Ajouter une carte',
+    description: 'Ajoute une carte à liste',
+    Component: CreateCardForm,
+  },
+];
 
 export const Header = () => {
   const [isHidden, setIsHidden] = useState(false);
   const [isScrollTop, setIsScrollTop] = useState(false);
   const { scrollY } = useScroll();
   const lastScrollYRef = useRef(0);
-  const blurClassName = 'backdrop-blur-lg ';
+  const { setOpenDialogIndex } = useDialog();
+
+  const blurClassName = 'backdrop-blur-lg';
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     const difference = y - lastScrollYRef.current;
@@ -25,30 +45,49 @@ export const Header = () => {
   });
 
   return (
-    <motion.header
-      animate={isHidden ? 'hidden' : 'visible'}
-      onFocusCapture={() => setIsHidden(false)}
-      variants={{ hidden: { y: '-100%' }, visible: { y: '0%' } }}
-      transition={{ duration: 0.25 }}
-      className={`fixed top-0 left-0 right-0 w-full z-20 backdrop-filter transition-colors ${isScrollTop ? blurClassName : ''}`}
-    >
-      <Container htmlTag="div" className="relative z-10">
-        <div className="flex items-center justify-between p-4">
-          <Link href="/">
-            <Image src="/loader/pokemon-logo-black.svg" alt="Pokemon logo" width={150} height={55} />
-          </Link>
-          <div className="flex gap-4">
-            <Button>
-              <Plus className="mr-2" size={16} />
-              <span className="text-xs">Ajouter un Pokémon</span>
-            </Button>
-            <Button>
-              <Plus className="mr-2" size={16} />
-              <span className="text-xs">Ajouter une carte</span>
-            </Button>
+    <AnimatePresence>
+      <motion.header
+        animate={isHidden ? 'hidden' : 'visible'}
+        onFocusCapture={() => setIsHidden(false)}
+        variants={{ hidden: { y: '-100%' }, visible: { y: '0%' } }}
+        transition={{ duration: 0.25 }}
+        className={cn(
+          'fixed top-0 left-0 right-0 w-full z-20 backdrop-filter transition-colors',
+          isScrollTop ? blurClassName : '',
+        )}
+      >
+        <Container htmlTag="div" className="relative z-10">
+          <div className={cn('flex items-center justify-between transition-all', isScrollTop ? 'p-0' : 'py-4')}>
+            <Link href="/">
+              <Image src="/loader/pokemon-logo-black.svg" alt="Pokemon logo" width={150} height={55} />
+            </Link>
+            <div className="flex gap-4">
+              {MODAL_CONTENTS.map((modal, index) => (
+                <PokemonDialog
+                  key={index}
+                  title={modal.title}
+                  openIndex={index}
+                  onToggle={(isOpen) => {
+                    setOpenDialogIndex(isOpen ? index : null);
+                  }}
+                  trigger={
+                    <Button>
+                      <Plus className="mr-2" size={16} />
+                      <span className="text-xs">{modal.title}</span>
+                    </Button>
+                  }
+                >
+                  <modal.Component
+                    onSubmitSuccess={() => {
+                      setOpenDialogIndex(null);
+                    }}
+                  />
+                </PokemonDialog>
+              ))}
+            </div>
           </div>
-        </div>
-      </Container>
-    </motion.header>
+        </Container>
+      </motion.header>
+    </AnimatePresence>
   );
 };

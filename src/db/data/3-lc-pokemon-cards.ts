@@ -1,4 +1,4 @@
-import { CardsForSeed } from '@/shared/types/seed.type';
+import { CardsForSeed } from '@/lib/types/seed.type';
 
 export const lcPokemonCards: CardsForSeed = [
   {

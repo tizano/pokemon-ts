@@ -2,10 +2,11 @@
 
 import { Pagination } from '@/components/pagination/pagination';
 import { PokemonBadge } from '@/components/pokemon-badge/pokemon-badge';
+import { PokemonBadgeSkeleton } from '@/components/pokemon-badge/pokemon-badge-skeleton';
 import useDebounce from '@/hooks/use-debounce';
+import { PokemonWithType } from '@/lib/types/pokemon.type';
+import { QueryWithPagination } from '@/lib/types/query.type';
 import { getPokemons } from '@/services/pokemon.service';
-import { PokemonWithType } from '@/shared/types/pokemon.type';
-import { QueryWithPagination } from '@/shared/types/query.type';
 import Link from 'next/link';
 import { useQueryState } from 'nuqs';
 import { useEffect, useState } from 'react';
@@ -36,6 +37,8 @@ export const Pokemons = () => {
   });
 
   const debouncedSearchName = useDebounce(searchName, 300);
+
+  // const { data: pokemonCards, isLoading } = useQuery(cardsQueryOptions(pokemonSlug));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,8 +75,13 @@ export const Pokemons = () => {
         className="mb-8"
         placeholder="Rechercher un Pokémon"
       />
-
       {!pokemonsData.count && <div>No Pokémon found</div>}
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-6  mb-14">
+        {Array.from({ length: 7 }).map((_, index) => (
+          <PokemonBadgeSkeleton key={index} />
+        ))}
+      </ul>
+
       {pokemonsData.count && (
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-6  mb-14">
           {pokemonsData.data.map((pokemonData) => (

@@ -2,8 +2,8 @@
 
 import { db } from '@/db/connect';
 import { pokemonType } from '@/db/schema/schema';
-import { CustomQuery } from '@/shared/types/query.type';
-import { PokemonType } from '@/shared/types/schema.type';
+import { CustomQuery } from '@/lib/types/query.type';
+import { PokemonType } from '@/lib/types/schema.type';
 import { asc } from 'drizzle-orm';
 
 export const getPokemonTypes = async (): Promise<CustomQuery<PokemonType[]>> => {

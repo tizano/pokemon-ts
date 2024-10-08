@@ -48,6 +48,8 @@ const config = {
         'pokemon-type-rock': 'var(--pokemon-type-rock)',
         'pokemon-type-steel': 'var(--pokemon-type-steel)',
         'pokemon-type-water': 'var(--pokemon-type-water)',
+        error: 'var(--error)',
+        success: 'var(--success)',
         white: 'var(--color-white)',
         black: 'var(--color-black)',
         border: 'hsl(var(--border))',
@@ -111,7 +113,8 @@ const config = {
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config;
 
 export default config;

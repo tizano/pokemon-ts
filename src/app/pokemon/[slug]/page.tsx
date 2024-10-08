@@ -1,9 +1,9 @@
 import { ButtonBack } from '@/components/button-back/button-back';
 import { Container } from '@/components/container/container';
+import getQueryClient from '@/components/providers/get-query-client';
 import { Cards } from '@/features/cards/cards';
-import { cardsQueryOptions } from '@/features/cards/cards-query-options';
-import getQueryClient from '@/lib/providers/get-query-client';
-import { capitalize, removeDigitFromSlug } from '@/shared/utils/utils';
+import { cardsQueryOptions } from '@/hooks/use-card';
+import { capitalize, removeDigitFromSlug } from '@/lib/utils/utils';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ArrowLeft } from 'lucide-react';
 

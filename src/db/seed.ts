@@ -1,7 +1,7 @@
 import { env } from '@/config/env';
 import { db } from '@/db/connect';
-import { NewCard, NewCardRarity, NewPokemon, NewPokemonToType, NewPokemonType } from '@/shared/types/schema.type';
-import { CardForSeed, PokemonForSeed, PokemonTypeForSeed } from '@/shared/types/seed.type';
+import { NewCard, NewCardRarity, NewPokemon, NewPokemonToType, NewPokemonType } from '@/lib/types/schema.type';
+import { CardForSeed, PokemonForSeed, PokemonTypeForSeed } from '@/lib/types/seed.type';
 import { basePokemonCards } from './data/0-base-pokemon-cards';
 import { gymPokemonCards } from './data/1-gym-pokemon-cards';
 import { hgssPokemonCards } from './data/10-hgss-pokemon-card';

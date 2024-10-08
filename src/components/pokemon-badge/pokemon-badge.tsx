@@ -1,4 +1,4 @@
-import { PokemonWithType } from '@/shared/types/pokemon.type';
+import { PokemonWithType } from '@/lib/types/pokemon.type';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 interface PokemonBadgeProps {
@@ -32,7 +32,7 @@ export const PokemonBadge: React.FC<PokemonBadgeProps> = ({ pokemon }) => {
   return (
     <div className="group flex justify-between items-center gap-3 md:gap-4 rounded-full bg-white p-4 transition-shadow hover:shadow-lg hover:shadow-pokemon-bg-600 overflow-hidden">
       <div className="flex items-center gap-3 md:gap-4">
-        <div className="relative after:bg-background after:rounded-full after:absolute after:h-[calc(100%-5px)] after:w-[calc(100%-5px)] after:top-[5px] after:left-[5px] after:z-0">
+        <div className="relative after:bg-pokemon-bg-100 after:rounded-full after:absolute after:h-[calc(100%-5px)] after:w-[calc(100%-5px)] after:top-[5px] after:left-[5px] after:z-0">
           <Image
             src={imageUrl}
             alt={`Illustration of ${name} pokemon`}

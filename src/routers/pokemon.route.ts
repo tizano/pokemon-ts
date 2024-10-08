@@ -1,10 +1,10 @@
 import { db } from '@/db/connect';
 import { pokemon } from '@/db/schema/schema';
+import { PokemonWithType } from '@/lib/types/pokemon.type';
+import { QueryWithPagination } from '@/lib/types/query.type';
+import { NewPokemon } from '@/lib/types/schema.type';
 import { createPokemonSchema, updatePokemonSchema } from '@/schemas/pokemon.schema';
 import { getPokemons } from '@/services/pokemon.service';
-import { PokemonWithType } from '@/shared/types/pokemon.type';
-import { QueryWithPagination } from '@/shared/types/query.type';
-import { NewPokemon } from '@/shared/types/schema.type';
 import { zValidator } from '@hono/zod-validator';
 import { eq } from 'drizzle-orm';
 import { Hono } from 'hono';

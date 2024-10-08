@@ -18,12 +18,6 @@ export const Hero = () => (
         />
       </div>
     </div>
-    {/* <div className="rounded-l-full h-[400px] w-8/12">
-      <Image src="/hero/hero-2.png" alt="Pokemon logo" width={2000} height={600} objectFit="cover" />
-    </div>
-    <div className="rounded-l-full h-[400px] w-8/12">
-      <Image src="/hero/hero-3.png" alt="Pokemon logo" width={2000} height={600} objectFit="cover" />
-    </div> */}
     <div className="flex justify-center mt-8">
       <ChevronDown className="text-white animate-bounce transition-all" size={40} />
     </div>

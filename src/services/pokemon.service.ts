@@ -1,9 +1,9 @@
 'use server';
 import { db } from '@/db/connect';
 import { pokemon, pokemonToType, pokemonType } from '@/db/schema/schema';
-import { GetPokemonsProps, PokemonWithType } from '@/shared/types/pokemon.type';
-import { QueryWithPagination } from '@/shared/types/query.type';
-import { NewPokemon, PokemonType } from '@/shared/types/schema.type';
+import { GetPokemonsProps, PokemonWithType } from '@/lib/types/pokemon.type';
+import { QueryWithPagination } from '@/lib/types/query.type';
+import { NewPokemon, PokemonType } from '@/lib/types/schema.type';
 import { and, asc, eq, ilike, sql, SQL } from 'drizzle-orm';
 
 export const getPokemons = async ({
@@ -79,6 +79,9 @@ export const getPokemon = async (slug: string) => {
 export const createPokemon = async (pokemonToInsert: NewPokemon) => {
   try {
     const data = await db.insert(pokemon).values(pokemonToInsert);
+    if (data.rowCount === 0) {
+      return { error: 'Failed to create Pokemon' };
+    }
     return { data };
   } catch (error) {
     return { error: `Failed to create Pokemon : ${error}` };

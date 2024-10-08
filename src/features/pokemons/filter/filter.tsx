@@ -1,9 +1,9 @@
 'use client';
 
+import { CustomQuery } from '@/lib/types/query.type';
+import { PokemonType } from '@/lib/types/schema.type';
 import { getPokemonTypes } from '@/services/pokemon-type.service';
-import { CustomQuery } from '@/shared/types/query.type';
-import { PokemonType } from '@/shared/types/schema.type';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import SearchBar from './search-bar';
 import SelectType from './select-type';
 
@@ -27,7 +27,9 @@ const Filter = ({ queryParam, placeholder, onSearchValueChange, onSelectValueCha
   return (
     <div className={`flex gap-4 mb-4 ${className}`}>
       <SearchBar queryParam={queryParam} onValueChange={onSearchValueChange} placeholder={placeholder} />
-      <SelectType pokemonTypes={pokemonTypesData.data} onValueChange={onSelectValueChange} />
+      <Suspense fallback={<div>Loading filter type ...</div>}>
+        <SelectType pokemonTypes={pokemonTypesData.data} onValueChange={onSelectValueChange} />
+      </Suspense>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { CardWithPokemonAndRarity } from '@/shared/types/card.type';
+import { CardWithPokemonAndRarity } from '@/lib/types/card.type';
 import Image from 'next/image';
 
 export const PokemonCard: React.FC<{ card: CardWithPokemonAndRarity }> = ({ card }) => {

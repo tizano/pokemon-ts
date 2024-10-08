@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react';
 
 export const useIntro = () => {
   const [showIntro, setShowIntro] = useState(false);
+  const [introFinished, setIntroFinished] = useState(false);
+
   const pathname = usePathname();
+
+  const INTRO_DURATION = 3000;
 
   useEffect(() => {
     const checkIntroStatus = () => {
@@ -20,17 +24,26 @@ export const useIntro = () => {
         document.body.style.overflow = 'hidden';
       } else {
         setShowIntro(false);
+        setIntroFinished(true);
         document.body.style.overflowY = 'scroll';
       }
     };
 
-    // Utiliser un timeout pour s'assurer que ce code s'exécute après le rendu initial
-    const timeoutId = setTimeout(checkIntroStatus, 0);
+    const finishIntro = () => {
+      setShowIntro(false);
+      setIntroFinished(true);
+    };
 
-    return () => clearTimeout(timeoutId);
+    const timeoutIdCheckIntroStatus = setTimeout(checkIntroStatus, 0);
+    const timeoutIdFinsiIntro = setTimeout(finishIntro, INTRO_DURATION);
+
+    return () => {
+      clearTimeout(timeoutIdCheckIntroStatus);
+      clearTimeout(timeoutIdFinsiIntro);
+    };
   }, [pathname]);
 
-  return showIntro;
+  return { showIntro, introFinished };
 };
 
 export default useIntro;

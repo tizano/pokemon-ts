@@ -4,7 +4,7 @@ import { integer, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 // Modèle Pokemon
 export const pokemon = pgTable('pokemon', {
   id: uuid('id').defaultRandom().primaryKey(),
-  pokedexId: integer('pokedex_id').notNull(),
+  pokedexId: integer('pokedex_id').notNull().unique(),
   slug: text('slug').notNull().unique(),
   name: text('name').notNull(),
   imageUrl: text('image_url').notNull(),

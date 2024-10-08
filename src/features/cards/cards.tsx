@@ -2,8 +2,8 @@
 
 import { PokemonCard } from '@/components/pokemon-card/pokemon-card';
 import { PokemonCardSkeleton } from '@/components/pokemon-card/pokemon-card-skeleton';
+import { cardsQueryOptions } from '@/hooks/use-card';
 import { useQuery } from '@tanstack/react-query';
-import { cardsQueryOptions } from './cards-query-options';
 
 export const Cards = ({ pokemonSlug }: { pokemonSlug: string }) => {
   const { data: pokemonCards, isLoading } = useQuery(cardsQueryOptions(pokemonSlug));

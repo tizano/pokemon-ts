@@ -30,6 +30,9 @@
     --pokemon-type-steel: #89a1b0;
     --pokemon-type-water: #539ae2;
 
+    --success: #009150;
+    --error: #cc3333;
+
     --background: 0 0% 98%;
     --foreground: 262 5% 10%;
     --card: 262 50% 90%;

@@ -1,8 +1,9 @@
 'use server';
 import { db } from '@/db/connect';
 import { card, cardRarity, pokemon } from '@/db/schema/schema';
-import { CardWithPokemonAndRarity } from '@/shared/types/card.type';
-import { CustomQuery } from '@/shared/types/query.type';
+import { CardWithPokemonAndRarity } from '@/lib/types/card.type';
+import { CustomQuery } from '@/lib/types/query.type';
+import { NewCard } from '@/lib/types/schema.type';
 import { asc, eq } from 'drizzle-orm';
 
 export const getCardsByPokemon = async ({
@@ -40,5 +41,17 @@ export const getCardsByPokemon = async ({
     } satisfies CustomQuery<CardWithPokemonAndRarity[]>;
   } catch (error) {
     throw new Error(`Unable to fetch Pokemon : ${error}`);
+  }
+};
+
+export const createCard = async (cardToInsert: NewCard) => {
+  try {
+    const data = await db.insert(card).values(cardToInsert);
+    if (data.rowCount === 0) {
+      return { error: 'Failed to create Card' };
+    }
+    return { data };
+  } catch (error) {
+    return { error: `Failed to create Card : ${error}` };
   }
 };
