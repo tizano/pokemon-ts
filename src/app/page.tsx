@@ -12,17 +12,21 @@ export default function Page() {
     <>
       {showIntro && <Loader />}
       {introFinished && (
-        <Container htmlTag="section" className="relative z-10">
+        <>
           <Hero />
-          <div className="flex justify-center w-full mb-16">
-            <h1 className="text-fluid-lg text-white w-1/2 leading-tight text-center">
-              Cherches ton Pokémon préféré et regardes toutes les cartes associées
-            </h1>
-          </div>
+          <Container htmlTag="section" className="relative z-10">
+            <div className="flex justify-center w-full mb-16">
+              <h1 className="text-fluid-lg text-white w-1/2 leading-tight text-center">
+                Cherches ton Pokémon préféré et regardes toutes les cartes associées
+              </h1>
+            </div>
+          </Container>
           <Suspense>
-            <Pokemons />
+            <Container htmlTag="section" className="relative z-10">
+              <Pokemons />
+            </Container>
           </Suspense>
-        </Container>
+        </>
       )}
     </>
   );
