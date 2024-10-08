@@ -4,7 +4,7 @@ import Image from 'next/image';
 export const Hero = () => (
   <>
     <div className="relative flex gap-10 justify-between items-center">
-      <h1 className="text-fluid-3xl font-bold text-white leading-none w-[448px] fhd:translate-x-[180px] translate-x-[330px] z-20">
+      <h1 className="text-fluid-3xl font-bold text-white leading-none w-[448px] fhd:translate-x-[180px] translate-x-[330px] z-20 motion-preset-slide-right">
         Gères ta collection de cartes
       </h1>
       <div className="overflow-hidden h-[500px] after:bg-pokemon-bg-900 after:opacity-50 after:z-10 after:absolute after:top-0 after:fhd:-right-[20vw] after:-right-[25vw] after:w-full after:h-[500px] after:rounded-l-full">
@@ -13,7 +13,7 @@ export const Hero = () => (
           alt="Pokemon logo"
           width={1024}
           height={600}
-          className="rounded-l-full h-[500px] object-cover object-left-top absolute top-0 fhd:-right-[20vw] -right-[25vw] w-[75vw] overflow-hidden"
+          className="rounded-l-full h-[500px] object-cover object-left-top absolute top-0 fhd:-right-[20vw] -right-[25vw] w-[75vw] overflow-hidden motion-preset-slide-left"
         />
       </div>
     </div>

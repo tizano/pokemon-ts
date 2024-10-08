@@ -114,7 +114,7 @@ const config = {
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('tailwindcss-motion')],
 } satisfies Config;
 
 export default config;
