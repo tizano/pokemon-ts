@@ -1,58 +1,27 @@
 'use client';
 
 import { Pagination } from '@/components/pagination/pagination';
-import { PokemonBadge } from '@/components/pokemon-badge/pokemon-badge';
-import { PokemonBadgeSkeleton } from '@/components/pokemon-badge/pokemon-badge-skeleton';
+import { ITEMS_PER_PAGE } from '@/constants/pagination';
 import useDebounce from '@/hooks/use-debounce';
-import { PokemonWithType } from '@/lib/types/pokemon.type';
-import { QueryWithPagination } from '@/lib/types/query.type';
-import { getPokemons } from '@/services/pokemon.service';
-import Link from 'next/link';
-import { useQueryState } from 'nuqs';
-import { useEffect, useState } from 'react';
-import Filter from './filter/filter';
+import { usePokemons } from '@/hooks/use-pokemon';
+import { useUrlParams } from '@/hooks/use-url-params';
+import Filter from './components/filter/filter';
+import { PokemonList } from './components/list/list';
+import { PokemonListSkeleton } from './components/list/list-skeleton';
 
 export const Pokemons = () => {
   const queryParam = 'name';
-  const itemsPerPage = 30;
 
-  const [currentType] = useQueryState<string>('type', {
-    defaultValue: '',
-    clearOnDefault: true,
-    parse: (value) => value,
-  });
-  const [searchName] = useQueryState(queryParam, { defaultValue: '' });
-  const [currentPage, setCurrentPage] = useQueryState<number>('page', {
-    defaultValue: 1,
-    clearOnDefault: true,
-    parse: (value) => parseInt(value, 10),
-    serialize: (value) => value.toString(),
-  });
-
-  const [pokemonsData, setPokemonsData] = useState<QueryWithPagination<PokemonWithType[]>>({
-    data: [],
-    page: 0,
-    itemsPerPage,
-    count: 0,
-  });
+  const { searchName, currentType, currentPage, setCurrentPage } = useUrlParams();
 
   const debouncedSearchName = useDebounce(searchName, 300);
 
-  // const { data: pokemonCards, isLoading } = useQuery(cardsQueryOptions(pokemonSlug));
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getPokemons({
-        page: currentPage,
-        itemsPerPage,
-        pokemonName: debouncedSearchName,
-        pokemonTypeSlug: currentType,
-      });
-
-      setPokemonsData(result);
-    };
-    fetchData();
-  }, [debouncedSearchName, currentPage, currentType]);
+  const { data: pokemonsData, isLoading } = usePokemons({
+    page: currentPage,
+    itemsPerPage: ITEMS_PER_PAGE,
+    pokemonName: debouncedSearchName,
+    pokemonTypeSlug: currentType,
+  });
 
   const resetPagination = (value: string = '') => (value === '' ? setCurrentPage(null) : setCurrentPage(1));
 
@@ -75,26 +44,16 @@ export const Pokemons = () => {
         className="mb-8"
         placeholder="Rechercher un Pokémon"
       />
-      {!pokemonsData.count && <div>No Pokémon found</div>}
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-6  mb-14">
-        {Array.from({ length: 7 }).map((_, index) => (
-          <PokemonBadgeSkeleton key={index} />
-        ))}
-      </ul>
+      {!pokemonsData && <div>No Pokémon found</div>}
+      {isLoading && <PokemonListSkeleton className="mb-14" />}
 
-      {pokemonsData.count && (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-6  mb-14">
-          {pokemonsData.data.map((pokemonData) => (
-            <li key={pokemonData.id}>
-              <Link href={`/pokemon/${pokemonData.slug}`}>
-                <PokemonBadge pokemon={pokemonData} />
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-      {pokemonsData.count > pokemonsData.itemsPerPage && (
-        <Pagination itemsPerPage={pokemonsData.itemsPerPage} totalItems={pokemonsData.count} />
+      {pokemonsData && (
+        <>
+          <PokemonList pokemonsData={pokemonsData} className="mb-14" />
+          {pokemonsData.count > pokemonsData.itemsPerPage && (
+            <Pagination itemsPerPage={pokemonsData.itemsPerPage} totalItems={pokemonsData.count} />
+          )}
+        </>
       )}
     </>
   );

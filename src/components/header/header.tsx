@@ -1,7 +1,7 @@
 'use client';
 import { Container } from '@/components/container/container';
 import { CreateCardForm } from '@/features/cards/forms/create-card-form';
-import { CreatePokemonForm } from '@/features/pokemons/forms/create-pokemon-form';
+import { CreatePokemonForm } from '@/features/pokemons/components/forms/create-pokemon-form';
 import { useDialog } from '@/hooks/use-dialog';
 import { cn } from '@/lib/utils/utils';
 import { AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion';
@@ -56,7 +56,7 @@ export const Header = () => {
           isScrollTop ? blurClassName : '',
         )}
       >
-        <Container htmlTag="div" className="relative z-10">
+        <Container htmlTag="div" className="relative">
           <div className={cn('flex items-center justify-between transition-all', isScrollTop ? 'p-0' : 'py-4')}>
             <Link href="/">
               <Image src="/loader/pokemon-logo-black.svg" alt="Pokemon logo" width={150} height={55} />
@@ -79,6 +79,8 @@ export const Header = () => {
                 >
                   <modal.Component
                     onSubmitSuccess={() => {
+                      console.log('onSubmitSuccess, it should close the dialog');
+
                       setOpenDialogIndex(null);
                     }}
                   />

@@ -2,16 +2,17 @@
 
 import { PokemonCard } from '@/components/pokemon-card/pokemon-card';
 import { PokemonCardSkeleton } from '@/components/pokemon-card/pokemon-card-skeleton';
-import { cardsQueryOptions } from '@/hooks/use-card';
-import { useQuery } from '@tanstack/react-query';
+import { useCards } from '@/hooks/use-card';
 
 export const Cards = ({ pokemonSlug }: { pokemonSlug: string }) => {
-  const { data: pokemonCards, isLoading } = useQuery(cardsQueryOptions(pokemonSlug));
+  const { data: pokemonCards, isLoading } = useCards(pokemonSlug);
   if (isLoading) {
     return (
       <ul className="flex flex-wrap gap-8 mb-4">
         {Array.from({ length: 10 }).map((_, index) => (
-          <PokemonCardSkeleton key={index} />
+          <li key={index}>
+            <PokemonCardSkeleton />
+          </li>
         ))}
       </ul>
     );

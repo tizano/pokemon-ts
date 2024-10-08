@@ -11,6 +11,6 @@ export const getPokemonTypes = async (): Promise<CustomQuery<PokemonType[]>> => 
     const data = await db.select().from(pokemonType).orderBy(asc(pokemonType.name));
     return { data };
   } catch (error) {
-    throw new Error(`Unable to fetch Pokemon cards : ${error}`);
+    throw new Error(`Unable to fetch Pokemon types : ${error}`);
   }
 };

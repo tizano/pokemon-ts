@@ -27,7 +27,7 @@ export default function RootLayout({
           <body className={`${inter.className} relative`}>
             <div className="z-10 pointer-events-none absolute bottom-0 -left-[5vw] -right-[5vw] top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:270px_104px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
             <Header />
-            <main className="relative min-h-screen bg-pokemon-bg-900 pt-[120px]">
+            <main className="relative z-10 min-h-screen bg-pokemon-bg-900 pt-[120px]">
               {children}
               <Toaster />
             </main>

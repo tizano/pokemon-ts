@@ -3,12 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useCreatePokemon } from '@/hooks/use-pokemon';
 import { useToast } from '@/hooks/use-toast';
 import { NewPokemon } from '@/lib/types/schema.type';
-import { clearCachesByServerAction } from '@/lib/utils/revalidate';
 import { generateSlug } from '@/lib/utils/utils';
 import { createPokemonSchema } from '@/schemas/pokemon.schema';
-import { createPokemon } from '@/services/pokemon.service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
 import { useEffect } from 'react';
@@ -37,25 +36,26 @@ export const CreatePokemonForm = ({ onSubmitSuccess }: CreatePokemonFormProps) =
 
   const { toast } = useToast();
 
-  const onSubmit = async (data: NewPokemon) => {
-    const submit = await createPokemon(data);
+  const { mutateAsync: createPokemon, isPending, isError, error } = useCreatePokemon();
 
-    if (submit.data) {
+  const onSubmit = async (pokemon: NewPokemon) => {
+    const res = await createPokemon(pokemon);
+
+    if (res.data) {
       pokemonForm.reset();
-      clearCachesByServerAction('/');
       onSubmitSuccess?.();
       toast({
         variant: 'success',
         title: 'Succès',
-        description: `Le Pokemon ${data.name} a été ajouté avec succès !`,
+        description: `Le Pokemon ${pokemon.name}#${pokemon.pokedexId} a été ajouté avec succès !`,
       });
     }
-    if (submit.error) {
-      const pokedexConstraintUnique = submit.error.includes('pokemon_pokedex_id_unique')
-        ? `ID : ${data.pokedexId} du pokedex est déjà utilisé`
+    if (isError && error) {
+      const pokedexConstraintUnique = error.message.includes('pokemon_pokedex_id_unique')
+        ? `ID : ${pokemon.pokedexId} du pokedex est déjà utilisé`
         : '';
-      const slugConstraintUnique = submit.error.includes('pokemon_slug_unique')
-        ? `le slug ${data.slug} existe déjà `
+      const slugConstraintUnique = error.message.includes('pokemon_slug_unique')
+        ? `le slug ${pokemon.slug} existe déjà `
         : '';
       toast({
         variant: 'destructive',
@@ -130,7 +130,7 @@ export const CreatePokemonForm = ({ onSubmitSuccess }: CreatePokemonFormProps) =
             </FormItem>
           )}
         />
-        <Button disabled={!pokemonForm.formState.isValid}>
+        <Button disabled={!pokemonForm.formState.isValid || isPending}>
           <Save className="mr-2" size={16} /> Ajouter
         </Button>
       </form>

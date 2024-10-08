@@ -4,12 +4,15 @@ import { card, cardRarity, pokemon } from '@/db/schema/schema';
 import { CardWithPokemonAndRarity } from '@/lib/types/card.type';
 import { CustomQuery } from '@/lib/types/query.type';
 import { NewCard } from '@/lib/types/schema.type';
-import { asc, eq } from 'drizzle-orm';
+import { asc, desc, eq } from 'drizzle-orm';
 
 export const getCardsByPokemon = async ({
   pokemonSlug,
+  order = 'asc',
 }: {
   pokemonSlug: string;
+  orderBy?: string;
+  order?: 'asc' | 'desc';
 }): Promise<CustomQuery<CardWithPokemonAndRarity[]>> => {
   try {
     const data = await db
@@ -35,7 +38,7 @@ export const getCardsByPokemon = async ({
       .leftJoin(pokemon, eq(pokemon.id, card.pokemonId))
       .leftJoin(cardRarity, eq(cardRarity.id, card.rarityId))
       .where(eq(pokemon.slug, `${pokemonSlug}`))
-      .orderBy(asc(card.cardNumber));
+      .orderBy(order === 'asc' ? asc(card.cardNumber) : desc(card.cardNumber));
     return {
       data,
     } satisfies CustomQuery<CardWithPokemonAndRarity[]>;

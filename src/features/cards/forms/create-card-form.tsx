@@ -1,9 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Combobox } from '@/components/ui/combo-box';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { usePokemons } from '@/hooks/use-pokemon';
 import { useToast } from '@/hooks/use-toast';
 import { NewCard } from '@/lib/types/schema.type';
 import { clearCachesByServerAction } from '@/lib/utils/revalidate';
@@ -28,6 +30,17 @@ export const CreateCardForm: React.FC<CreateCardFormProps> = ({ onSubmitSuccess 
     resolver: zodResolver(createCardSchema),
     mode: 'onTouched',
   });
+
+  const { data: pokemons } = usePokemons({
+    page: 1,
+    itemsPerPage: 50,
+  });
+
+  const transformPokemons =
+    pokemons?.data.map((pokemon) => ({
+      value: pokemon.slug,
+      label: pokemon.name,
+    })) || [];
 
   // const { control, setValue } = cardForm;
 
@@ -67,14 +80,17 @@ export const CreateCardForm: React.FC<CreateCardFormProps> = ({ onSubmitSuccess 
             <FormItem>
               <FormLabel>Associer un Pokémon</FormLabel>
               <FormControl>
+                <Combobox items={transformPokemons} />
                 <Select value={field.value ?? ''} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Select type" ref={field.ref} />
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choisir un Pokémon" ref={field.ref} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem key={1} value="feu">
-                      Feu
-                    </SelectItem>
+                    {pokemons?.data.map((pokemon) => (
+                      <SelectItem key={pokemon.id} value={pokemon.id}>
+                        {pokemon.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </FormControl>

@@ -13,8 +13,8 @@ export default function Page() {
       {showIntro && <Loader />}
       {introFinished && (
         <>
-          <Hero />
           <Container htmlTag="section" className="relative z-10">
+            <Hero />
             <div className="flex justify-center w-full mb-16">
               <h1 className="text-fluid-lg text-white w-1/2 leading-tight text-center">
                 Cherches ton Pokémon préféré et regardes toutes les cartes associées
