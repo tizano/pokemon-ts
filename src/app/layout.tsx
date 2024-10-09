@@ -1,11 +1,11 @@
 import { Footer } from '@/components/footer/footer';
-import { Header } from '@/components/header/header';
 import { DialogProvider } from '@/components/providers/dialog-provider';
 import ReactQueryClientProvider from '@/components/providers/react-query-client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 
+import { Header } from '@/components/header/header';
 import './globals.css';
 
 const inter = Poppins({ weight: ['400', '600', '700'], subsets: ['latin'] });

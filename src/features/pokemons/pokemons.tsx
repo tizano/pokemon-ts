@@ -45,13 +45,13 @@ export const Pokemons = () => {
         placeholder="Rechercher un Pokémon"
       />
       {!pokemonsData && <div>No Pokémon found</div>}
-      {isLoading && <PokemonListSkeleton className="mb-14" />}
-
+      {/* remove the pagination height to prevent the page from jumping */}
+      {isLoading && <PokemonListSkeleton className="-mt-6 mb-[92px]" />}{' '}
       {pokemonsData && (
         <>
-          <PokemonList pokemonsData={pokemonsData} className="mb-14" />
-          {pokemonsData.count > pokemonsData.itemsPerPage && (
-            <Pagination itemsPerPage={pokemonsData.itemsPerPage} totalItems={pokemonsData.count} />
+          <PokemonList pokemonsData={pokemonsData} />
+          {pokemonsData?.count > pokemonsData?.itemsPerPage && (
+            <Pagination className="mt-14" itemsPerPage={pokemonsData?.itemsPerPage} totalItems={pokemonsData?.count} />
           )}
         </>
       )}

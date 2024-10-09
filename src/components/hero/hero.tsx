@@ -17,7 +17,7 @@ export const Hero = () => (
         />
       </div>
     </div>
-    <div className="flex justify-center mt-8">
+    <div className="flex justify-center mt-16">
       <ChevronDown className="text-white animate-bounce transition-all" size={40} />
     </div>
   </>
