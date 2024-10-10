@@ -5,7 +5,7 @@ import { PokemonCardSkeleton } from '@/components/pokemon-card/pokemon-card-skel
 import { useCards } from '@/hooks/use-card';
 
 export const Cards = ({ pokemonSlug }: { pokemonSlug: string }) => {
-  const { data: pokemonCards, isLoading } = useCards(pokemonSlug);
+  const { data: pokemonCards, isLoading } = useCards({ pokemonSlug });
   if (isLoading) {
     return (
       <ul className="flex flex-wrap gap-8 mb-4">
