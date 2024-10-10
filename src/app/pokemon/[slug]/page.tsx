@@ -16,7 +16,7 @@ export default function PokemonDetailPage({ params }: PokemonDetailPageProps) {
   const clearedSlug = removeDigitFromSlug(slug);
 
   const queryClient = getQueryClient();
-  queryClient.prefetchQuery(cardsQueryOptions(slug));
+  queryClient.prefetchQuery(cardsQueryOptions({ pokemonSlug: slug }));
 
   return (
     <Container className="relative z-10">

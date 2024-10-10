@@ -2,12 +2,18 @@
 import { Container } from '@/components/container/container';
 import { Hero } from '@/components/hero/hero';
 import { Loader } from '@/components/loader/loader';
+import getQueryClient from '@/components/providers/get-query-client';
 import { Pokemons } from '@/features/pokemons/pokemons';
 import useIntro from '@/hooks/use-intro';
-import { Suspense } from 'react';
+import { pokemonsQueryOptions } from '@/hooks/use-pokemon';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 export default function Page() {
   const { showIntro, introFinished } = useIntro();
+
+  const queryClient = getQueryClient();
+  queryClient.prefetchQuery(pokemonsQueryOptions({}));
+
   return (
     <>
       {showIntro && <Loader />}
@@ -19,9 +25,9 @@ export default function Page() {
               Cherches ton Pokémon préféré et regardes toutes les cartes associées
             </h1>
           </div>
-          <Suspense>
+          <HydrationBoundary state={dehydrate(queryClient)}>
             <Pokemons />
-          </Suspense>
+          </HydrationBoundary>
         </Container>
       )}
     </>
