@@ -1,7 +1,7 @@
 'use client';
 
 import { Pagination } from '@/components/pagination/pagination';
-import { ITEMS_PER_PAGE } from '@/constants/pagination';
+import { ITEMS_PER_PAGE } from '@/constants';
 import useDebounce from '@/hooks/use-debounce';
 import { usePokemons } from '@/hooks/use-pokemon';
 import { useUrlParams } from '@/hooks/use-url-params';

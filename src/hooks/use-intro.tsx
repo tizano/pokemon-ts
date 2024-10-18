@@ -1,3 +1,4 @@
+import { INTRO_DURATION } from '@/constants';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -6,8 +7,6 @@ export const useIntro = () => {
   const [introFinished, setIntroFinished] = useState(false);
 
   const pathname = usePathname();
-
-  const INTRO_DURATION = 3000;
 
   useEffect(() => {
     const checkIntroStatus = () => {
@@ -35,7 +34,7 @@ export const useIntro = () => {
     };
 
     const timeoutIdCheckIntroStatus = setTimeout(checkIntroStatus, 0);
-    const timeoutIdFinsiIntro = setTimeout(finishIntro, INTRO_DURATION);
+    const timeoutIdFinsiIntro = setTimeout(finishIntro, INTRO_DURATION * 2);
 
     return () => {
       clearTimeout(timeoutIdCheckIntroStatus);

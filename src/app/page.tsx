@@ -1,23 +1,18 @@
-'use client';
 import { Container } from '@/components/container/container';
 import { Hero } from '@/components/hero/hero';
-import { Loader } from '@/components/loader/loader';
+import { Intro } from '@/components/intro/intro';
 import getQueryClient from '@/components/providers/get-query-client';
 import { Pokemons } from '@/features/pokemons/pokemons';
-import useIntro from '@/hooks/use-intro';
 import { pokemonsQueryOptions } from '@/hooks/use-pokemon';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 export default function Page() {
-  const { showIntro, introFinished } = useIntro();
-
   const queryClient = getQueryClient();
-  queryClient.prefetchQuery(pokemonsQueryOptions({}));
+  queryClient.prefetchQuery(pokemonsQueryOptions({ page: 1 }));
 
   return (
     <>
-      {showIntro && <Loader />}
-      {introFinished && (
+      <Intro>
         <Container htmlTag="section" className="relative z-10">
           <Hero />
           <div className="flex justify-center w-full mt-16 mb-20">
@@ -29,7 +24,7 @@ export default function Page() {
             <Pokemons />
           </HydrationBoundary>
         </Container>
-      )}
+      </Intro>
     </>
   );
 }
