@@ -10,7 +10,15 @@ export const ButtonBack = ({
 }>) => {
   const router = useRouter();
   return (
-    <Button className={className} variant={'outline'} onClick={() => router.back()}>
+    <Button
+      className={className}
+      variant={'outline'}
+      onClick={() =>
+        router.push('/', {
+          scroll: false,
+        })
+      }
+    >
       {children}
     </Button>
   );
