@@ -1,28 +1,41 @@
 'use client';
 import { Container } from '@/components/container/container';
-import { CreateCardForm } from '@/features/cards/forms/create-card-form';
-import { CreatePokemonForm } from '@/features/pokemons/components/forms/create-pokemon-form';
 import { useDialog } from '@/hooks/use-dialog';
 import { cn } from '@/lib/utils/utils';
 import { AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion';
 import * as motion from 'framer-motion/client';
 import { Plus } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { PokemonDialog } from '../pokemon-dialog/pokemon-dialog';
 import { Button } from '../ui/button';
 
+const DynamicPokemonForm = dynamic(
+  () => import('@/features/pokemons/components/forms/create-pokemon-form').then((mod) => mod.CreatePokemonForm),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+
+const DynamicCardForm = dynamic(
+  () => import('@/features/cards/forms/create-card-form').then((mod) => mod.CreateCardForm),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+
 const MODAL_CONTENTS = [
   {
     title: 'Ajouter un Pokémon',
     description: 'Ajoute un Pokémon à liste',
-    Component: CreatePokemonForm,
+    Component: DynamicPokemonForm,
   },
   {
     title: 'Ajouter une carte',
     description: 'Ajoute une carte à liste',
-    Component: CreateCardForm,
+    Component: DynamicCardForm,
   },
 ];
 
@@ -59,7 +72,7 @@ export const Header = ({ className }: { className?: string }) => {
       >
         <Container htmlTag="div" className="relative">
           <div className={cn('flex items-center justify-between transition-all', isScrollTop ? 'p-0' : 'py-4')}>
-            <Link href="/" className="motion-preset-slide-down">
+            <Link href="/" className="motion-preset-slide-down" scroll={true}>
               <Image src="/loader/pokemon-logo-black.svg" alt="Pokemon logo" width={150} height={55} />
             </Link>
             <div className="flex gap-4">
