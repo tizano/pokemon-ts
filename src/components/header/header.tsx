@@ -9,20 +9,31 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
+import { LoaderPokeball } from '../loader-pokeball/loader-pokeball';
 import { PokemonDialog } from '../pokemon-dialog/pokemon-dialog';
 import { Button } from '../ui/button';
 
 const DynamicPokemonForm = dynamic(
   () => import('@/features/pokemons/components/forms/create-pokemon-form').then((mod) => mod.CreatePokemonForm),
   {
-    loading: () => <p>Loading...</p>,
+    loading: () => (
+      <div className="flex items-center justify-center">
+        <LoaderPokeball />
+      </div>
+    ),
+    ssr: false,
   },
 );
 
 const DynamicCardForm = dynamic(
   () => import('@/features/cards/forms/create-card-form').then((mod) => mod.CreateCardForm),
   {
-    loading: () => <p>Loading...</p>,
+    loading: () => (
+      <div className="flex items-center justify-center">
+        <LoaderPokeball />
+      </div>
+    ),
+    ssr: false,
   },
 );
 

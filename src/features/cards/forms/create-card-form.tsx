@@ -9,7 +9,6 @@ import { usePokemons } from '@/hooks/use-pokemon';
 import { useToast } from '@/hooks/use-toast';
 import { NewCard } from '@/lib/types/schema.type';
 import { SelectValueLabel } from '@/lib/types/select.type';
-import { clearCachesByServerAction } from '@/lib/utils/revalidate';
 import { createCardSchema } from '@/schemas/card.schema';
 import { createCard } from '@/services/card.service';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -54,7 +53,6 @@ export const CreateCardForm: React.FC<CreateCardFormProps> = ({ onSubmitSuccess 
 
     if (submit.data) {
       cardForm.reset();
-      clearCachesByServerAction('/');
       onSubmitSuccess?.();
       toast({
         variant: 'success',
@@ -81,19 +79,21 @@ export const CreateCardForm: React.FC<CreateCardFormProps> = ({ onSubmitSuccess 
             <FormItem>
               <FormLabel>Associer un Pokémon</FormLabel>
               <FormControl>
-                <Combobox items={transformPokemonsForSelect} />
-                <Select value={field.value ?? ''} onValueChange={field.onChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choisir un Pokémon" ref={field.ref} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {pokemons?.data.map((pokemon) => (
-                      <SelectItem key={pokemon.id} value={pokemon.id}>
-                        {pokemon.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <>
+                  <Combobox items={transformPokemonsForSelect} />
+                  <Select value={field.value ?? ''} onValueChange={field.onChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choisir un Pokémon" ref={field.ref} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {pokemons?.data.map((pokemon) => (
+                        <SelectItem key={pokemon.id} value={pokemon.id}>
+                          {pokemon.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </>
               </FormControl>
               <FormMessage />
             </FormItem>
