@@ -34,7 +34,7 @@ export const useIntro = () => {
     };
 
     const timeoutIdCheckIntroStatus = setTimeout(checkIntroStatus, 0);
-    const timeoutIdFinsiIntro = setTimeout(finishIntro, INTRO_DURATION * 2);
+    const timeoutIdFinsiIntro = setTimeout(finishIntro, INTRO_DURATION);
 
     return () => {
       clearTimeout(timeoutIdCheckIntroStatus);
