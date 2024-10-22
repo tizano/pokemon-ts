@@ -9,12 +9,12 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils/utils';
 
-export function Combobox({ items }: { items: SelectValueLabel[] }) {
+export function Combobox({ items, modal }: { items: SelectValueLabel[]; modal?: boolean }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} modal={modal}>
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
           {value ? items.find((item) => item.value === value)?.label : 'Select item...'}
