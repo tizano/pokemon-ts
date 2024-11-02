@@ -4,26 +4,24 @@ import { NewCard } from '@/lib/types/schema.type';
 import { createCard, getCardsByPokemon } from '@/services/card.service';
 import { queryOptions, useMutation, useQuery } from '@tanstack/react-query';
 
-export const cardsQueryOptions = ({ pokemonSlug }: GetCardsByPokemonProps) =>
+export const cardsQueryOptions = ({ pokemonSlug, raritySlug }: GetCardsByPokemonProps) =>
   queryOptions({
-    queryKey: ['cards', { pokemonSlug }],
-    queryFn: () => getCardsByPokemon({ pokemonSlug }),
+    queryKey: ['cards', { pokemonSlug, raritySlug }],
+    queryFn: () => getCardsByPokemon({ pokemonSlug, raritySlug }),
   });
 
 export const useCards = (props: GetCardsByPokemonProps) => useQuery(cardsQueryOptions(props));
 
-export const useCreateCard = (newCard: NewCard) => {
+export const useCreateCard = () => {
   const queryClient = getQueryClient();
 
   return useMutation({
     mutationKey: ['createCard'],
-    mutationFn: () => createCard(newCard),
+    mutationFn: (newCard: NewCard) => createCard(newCard),
     onSuccess: () => {
       // Invalidate the cards query to refetch the data
       queryClient.invalidateQueries({
         queryKey: ['cards'],
-        exact: true,
-        refetchType: 'active',
       });
     },
   });

@@ -1,11 +1,11 @@
 import { useQueryState } from 'nuqs';
 
 export function useUrlParams() {
-  const [searchName] = useQueryState('name', {
+  const [searchName, setSearchName] = useQueryState('name', {
     defaultValue: '',
   });
 
-  const [currentType] = useQueryState<string>('type', {
+  const [currentType, setCurrentType] = useQueryState<string>('type', {
     defaultValue: '',
     clearOnDefault: true,
     parse: (value) => value,
@@ -15,16 +15,23 @@ export function useUrlParams() {
     defaultValue: 1,
     clearOnDefault: true,
     parse: (value) => parseInt(value, 10),
-    serialize: (value) => value.toString(),
+    serialize: (value) => value?.toString() ?? '1',
   });
 
-  // Vous pouvez ajouter d'autres paramètres si nécessaire, comme itemsPerPage
+  const [currentRarity, setCurrentRarity] = useQueryState<string>('rarity', {
+    defaultValue: '',
+    clearOnDefault: true,
+    parse: (value) => value,
+  });
 
   return {
     searchName,
+    setSearchName,
     currentType,
+    setCurrentType,
     currentPage,
     setCurrentPage,
-    // Retournez d'autres setters si vous en avez besoin
+    currentRarity,
+    setCurrentRarity,
   };
 }

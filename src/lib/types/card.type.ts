@@ -7,4 +7,5 @@ export type CardWithPokemonAndRarity = Card & {
 
 export interface GetCardsByPokemonProps {
   pokemonSlug: string;
+  raritySlug?: string;
 }

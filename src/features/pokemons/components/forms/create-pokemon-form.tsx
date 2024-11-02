@@ -131,7 +131,7 @@ export const CreatePokemonForm = ({ onSubmitSuccess }: CreatePokemonFormProps) =
           )}
         />
         <Button disabled={!pokemonForm.formState.isValid || isPending}>
-          <Save className="mr-2" size={16} /> Ajouter
+          <Save className="mr-2" size={16} /> Ajouter le Pokémon
         </Button>
       </form>
     </Form>

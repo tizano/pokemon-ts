@@ -26,7 +26,7 @@ const DynamicPokemonForm = dynamic(
 );
 
 const DynamicCardForm = dynamic(
-  () => import('@/features/cards/forms/create-card-form').then((mod) => mod.CreateCardForm),
+  () => import('@/features/cards/components/forms/create-card-form').then((mod) => mod.CreateCardForm),
   {
     loading: () => (
       <div className="flex items-center justify-center">

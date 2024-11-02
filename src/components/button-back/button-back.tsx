@@ -1,6 +1,6 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { Button } from '../ui/button';
 
 export const ButtonBack = ({
   className,

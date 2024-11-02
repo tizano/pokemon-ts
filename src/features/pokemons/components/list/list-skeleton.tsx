@@ -1,6 +1,6 @@
 import { ITEMS_PER_PAGE } from '@/constants';
+import { PokemonBadgeSkeleton } from '@/features/pokemons/components/pokemon-badge/pokemon-badge-skeleton';
 import { cn } from '@/lib/utils/utils';
-import { PokemonBadgeSkeleton } from '../pokemon-badge/pokemon-badge-skeleton';
 
 export const PokemonListSkeleton: React.FC<{
   className?: string;
